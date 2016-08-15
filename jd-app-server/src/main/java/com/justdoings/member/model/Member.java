@@ -1,14 +1,18 @@
 package com.justdoings.member.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.justdoings.organizer.model.Organizer;
 import com.justdoings.status.code.model.StatusCode;
 
 @Entity
@@ -64,6 +68,11 @@ public class Member {
 	
 	/** 停權說明 */
 	private String disableDesc;
+	
+	/** 追蹤主辦單位 */
+	@ManyToMany
+	@JoinTable(name="Organizer_Tracking", joinColumns=@JoinColumn(name="memSeq"), inverseJoinColumns=@JoinColumn(name="orgSeq"))
+	private List<Organizer> organizerTracking;
 
 	public Integer getMemSeq() {
 		return memSeq;
@@ -191,5 +200,13 @@ public class Member {
 
 	public void setDisableDesc(String disableDesc) {
 		this.disableDesc = disableDesc;
+	}
+
+	public List<Organizer> getOrganizerTracking() {
+		return organizerTracking;
+	}
+
+	public void setOrganizerTracking(List<Organizer> organizerTracking) {
+		this.organizerTracking = organizerTracking;
 	}
 }

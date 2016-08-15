@@ -1,12 +1,14 @@
 package com.justdoings.organizer.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.justdoings.member.model.Member;
@@ -55,6 +57,10 @@ public class Organizer {
 	@JoinColumn(name="code", referencedColumnName="status")	
 	/** 狀態碼 */
 	private StatusCode statusCode;
+	
+	@ManyToMany(mappedBy="organizerTracking")
+	/** 誰在追蹤 */
+	private List<Member> trackers;
 	
 	/** 建立日期 */
 	private Date createDt;
@@ -172,5 +178,13 @@ public class Organizer {
 
 	public void setUpdateDt(Date updateDt) {
 		this.updateDt = updateDt;
+	}
+
+	public List<Member> getTrackers() {
+		return trackers;
+	}
+
+	public void setTrackers(List<Member> trackers) {
+		this.trackers = trackers;
 	}
 }
