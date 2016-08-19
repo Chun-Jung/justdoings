@@ -4,15 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class ActLoc {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	/** ¦a°Ï½s¸¹ */
+	/** æ´»å‹•åœ°å€ç·¨è™Ÿ */
 	private Integer actLocSeq;
 	
-	/** ¦a°Ï¦WºÙ */
+	/** åœ°å€åç¨± */
 	private String name;
 
 	public Integer getActLocSeq() {

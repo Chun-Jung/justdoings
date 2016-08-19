@@ -5,18 +5,44 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class Ad {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	/** ½ü¼½½s¸¹ */
+	/** è¼ªæ’­ç·¨è™Ÿ */
 	private Integer adSeq;
 	
-	/** ¬¡°Ê */
+	/** æ´»å‹•ç·¨è™Ÿ */
 	private Integer actSeq;
 	
-	/** ½ü¼½³sµ² */
+	/** æ´»å‹•ç¶²å€ */
 	private String adUrl;
+
+	public Integer getAdSeq() {
+		return adSeq;
+	}
+
+	public void setAdSeq(Integer adSeq) {
+		this.adSeq = adSeq;
+	}
+
+	public Integer getActSeq() {
+		return actSeq;
+	}
+
+	public void setActSeq(Integer actSeq) {
+		this.actSeq = actSeq;
+	}
+
+	public String getAdUrl() {
+		return adUrl;
+	}
+
+	public void setAdUrl(String adUrl) {
+		this.adUrl = adUrl;
+	}
 	
 }

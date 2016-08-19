@@ -11,65 +11,67 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.justdoings.organizer.model.Organizer;
 import com.justdoings.status.code.model.StatusCode;
 
 @Entity
+@Table
 public class Member {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	/** ·|­û½s¸¹ */
+	/** æœƒå“¡ç·¨è™Ÿ */
 	private Integer memSeq;
 	
-	/** ¹q¤l«H½c(±b¸¹) */
+	/** ä¿¡ç®±(å¸³è™Ÿ) */
 	private String email;
 	
-	/** ±K½X */
+	/** å¯†ç¢¼ */
 	private String password;
 	
-	/** ©m¦W */
+	/** å§“å */
 	private String name;
 	
-	/** ©Ê§O */
+	/** æ€§åˆ¥ */
 	private Integer sex;
 	
-	/** ¤â¾÷ */
+	/** æ‰‹æ©Ÿè™Ÿç¢¼ */
 	private String mobilePhone;
 	
-	/** ¼v¹³ÀÉ®×¦WºÙ */
+	/** å½±åƒæª”æ¡ˆåç¨± */
 	private String imgFileName;
 	
-	/** ­Ó¤HÂ²¤¶ */
-	private String content;
+	/** ç°¡ä»‹ */
+	private String profile;
 	
-	/** ª¬ºA */
+	/** ç‹€æ…‹ç¢¼ */
 	@ManyToOne
 	@JoinColumn(name="code", referencedColumnName="status")
 	private StatusCode statusCode;
 	
-	/** UUID(§Ñ°O±K½X) */
+	/** UUID(å¿˜è¨˜å¯†ç¢¼) */
 	private String uuid;
 	
-	/** UUID¦³®Ä´Á­­ */
+	/** UUIDæœ‰æ•ˆæœŸé™ */
 	private Date uuidDt;
 	
-	/** ¥Í¤é */
+	/** ç”Ÿæ—¥ */
 	private Date birthday;
 	
-	/** «Ø¥ß®É¶¡ */
+	/** å»ºç«‹æ™‚é–“ */
 	private Date createDt;
 
-	/** °±Åv°_¤é */
+	/** åœæ¬Šèµ·æ—¥ */
 	private Date disableBeginDt;
 	
-	/** °±Åv¨´¤é */
+	/** åœæ¬Šè¿„æ—¥ */
 	private Date disableEndDt;
 	
-	/** °±Åv»¡©ú */
+	/** åœæ¬Šæè¿° */
 	private String disableDesc;
 	
-	/** °lÂÜ¥D¿ì³æ¦ì */
+	/** è¿½è¹¤çš„ä¸»è¾¦å–®ä½ */
 	@ManyToMany
 	@JoinTable(name="Organizer_Tracking", joinColumns=@JoinColumn(name="memSeq"), inverseJoinColumns=@JoinColumn(name="orgSeq"))
 	private List<Organizer> organizerTracking;
@@ -130,12 +132,12 @@ public class Member {
 		this.imgFileName = imgFileName;
 	}
 
-	public String getContent() {
-		return content;
+	public String getProfile() {
+		return profile;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 
 	public StatusCode getStatusCode() {
@@ -209,4 +211,5 @@ public class Member {
 	public void setOrganizerTracking(List<Organizer> organizerTracking) {
 		this.organizerTracking = organizerTracking;
 	}
+
 }

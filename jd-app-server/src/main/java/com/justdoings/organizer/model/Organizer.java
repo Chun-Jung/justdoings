@@ -10,62 +10,64 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.justdoings.member.model.Member;
 import com.justdoings.status.code.model.StatusCode;
 
 @Entity
+@Table
 public class Organizer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	/** ¥D¿ì³æ¦ì½s¸¹ */
+	/** ä¸»è¾¦å–®ä½ç·¨è™Ÿ */
 	private Integer orgSeq;
 	
 	@ManyToOne
 	@JoinColumn(name="memSeq")
-	/** ·|­û */
+	/** æœƒå“¡ç·¨è™Ÿ */
 	private Member member;
 	
-	/** ¦WºÙ */
+	/** ä¸»è¾¦å–®ä½åç¨± */
 	private String name;
 	
-	/** ¦a§} */
+	/** åœ°å€ */
 	private String addr;
 	
-	/** ¹q¸Ü */
+	/** é›»è©±è™Ÿç¢¼ */
 	private String telNo;
 	
-	/** ¶Ç¯u */
+	/** å‚³çœŸè™Ÿç¢¼ */
 	private String faxNo;
 	
-	/** ¹q¤l«H½c */
+	/** ä¿¡ç®± */
 	private String email;
 	
-	/** ©x¤è³sµ² */
+	/** ç¶²ç«™é€£çµ */
 	private String link;
 	
-	/** µuºô§} */
+	/** çŸ­é€£çµ */
 	private String shortLink;
 	
-	/** ¥D¿ì³æ¦ì¤¶²Ğ */
-	private String content;
+	/** ç°¡ä»‹ */
+	private String profile;
 	
-	/** ¼v¹³ÀÉ®×¦WºÙ */
+	/** å½±åƒæª”æ¡ˆåç¨± */
 	private String imgFileName;
 	
 	@ManyToOne
 	@JoinColumn(name="code", referencedColumnName="status")	
-	/** ª¬ºA½X */
+	/** ç‹€æ…‹ç¢¼ */
 	private StatusCode statusCode;
 	
 	@ManyToMany(mappedBy="organizerTracking")
-	/** ½Ö¦b°lÂÜ */
+	/** è¿½è¹¤çš„ä½¿ç”¨è€… */
 	private List<Member> trackers;
 	
-	/** «Ø¥ß¤é´Á */
+	/** å»ºç«‹æ™‚é–“ */
 	private Date createDt;
 	
-	/** §ó·s¤é´Á */
+	/** æœ€å¾Œæ›´æ–°æ™‚é–“ */
 	private Date updateDt;
 
 	public Integer getOrgSeq() {
@@ -140,12 +142,12 @@ public class Organizer {
 		this.shortLink = shortLink;
 	}
 
-	public String getContent() {
-		return content;
+	public String getProfile() {
+		return profile;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 
 	public String getImgFileName() {
@@ -164,6 +166,14 @@ public class Organizer {
 		this.statusCode = statusCode;
 	}
 
+	public List<Member> getTrackers() {
+		return trackers;
+	}
+
+	public void setTrackers(List<Member> trackers) {
+		this.trackers = trackers;
+	}
+
 	public Date getCreateDt() {
 		return createDt;
 	}
@@ -180,11 +190,4 @@ public class Organizer {
 		this.updateDt = updateDt;
 	}
 
-	public List<Member> getTrackers() {
-		return trackers;
-	}
-
-	public void setTrackers(List<Member> trackers) {
-		this.trackers = trackers;
-	}
 }

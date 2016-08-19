@@ -2,18 +2,20 @@ package com.justdoings.status.code.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class StatusCode {
 	@Id
-	/** ª¬ºA½X½s¸¹ */
+	/** ç‹€æ…‹ç¢¼ç·¨è™Ÿ */
 	private Integer statusSeq;
 	
 	@Id
-	/** ª¬ºA½X¥N¸¹ */
+	/** ç‹€æ…‹ç¢¼ä»£è™Ÿ */
 	private Integer code;
 	
-	/** ª¬ºA¦WºÙ */
+	/** ç‹€æ…‹åç¨± */
 	private String value;
 
 	public Integer getStatusSeq() {
@@ -40,5 +42,8 @@ public class StatusCode {
 		this.value = value;
 	}
 	
+	public String getLabel(){
+		return this.code + "-" + this.value;
+	}
 	
 }

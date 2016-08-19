@@ -4,15 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class ActCate {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	/** ¤ÀÃş½s¸¹ */
+	/** æ´»å‹•åˆ†é¡ç·¨è™Ÿ */
 	private Integer actCateSeq;
 	
-	/** ¤ÀÃş¦WºÙ */
+	/** åˆ†é¡åç¨± */
 	private String name;
 
 	public Integer getActCateSeq() {
