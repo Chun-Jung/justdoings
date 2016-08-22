@@ -19,6 +19,7 @@
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="database" value="MYSQL" />
 		<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+		<property name="showSql" value="true" />
 	</bean>
 
 	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
