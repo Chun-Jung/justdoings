@@ -1,5 +1,6 @@
 package com.justdoings.ad.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +13,16 @@ import javax.persistence.Table;
 public class Ad {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ad_seq")
 	/** 輪播編號 */
 	private Integer adSeq;
 	
+	@ManyToOne
+	@Column(name = "act_seq")
 	/** 活動編號 */
 	private Integer actSeq;
-	
+
+	@Column(name = "ad_url")
 	/** 活動網址 */
 	private String adUrl;
 

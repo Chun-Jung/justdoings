@@ -8,8 +8,11 @@
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-		<property name="persistenceUnitName" value="personPersistenceUnit" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.justdoings.keyword.model</value>
+			</list>
+		</property>
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 		<property name="jpaDialect" ref="jpaDialect" />
@@ -26,8 +29,8 @@
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="jpaDialect" ref="jpaDialect" />
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 		<property name="jpaDialect" ref="jpaDialect" /> -->
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

@@ -1,5 +1,6 @@
 package com.justdoings.act.cate.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 public class ActCate {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "act_cate_seq")
 	/** 活動分類編號 */
 	private Integer actCateSeq;
 	

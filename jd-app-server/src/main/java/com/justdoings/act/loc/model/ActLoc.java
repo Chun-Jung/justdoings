@@ -1,5 +1,6 @@
 package com.justdoings.act.loc.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 public class ActLoc {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "act_loc_seq")
 	/** 活動地區編號 */
 	private Integer actLocSeq;
 	
