@@ -9,4 +9,20 @@ public class KeywordId implements Serializable {
 
 	/** 查詢時戳 */
 	private Timestamp queryTs;
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public Timestamp getQueryTs() {
+		return queryTs;
+	}
+
+	public void setQueryTs(Timestamp queryTs) {
+		this.queryTs = queryTs;
+	}
 }

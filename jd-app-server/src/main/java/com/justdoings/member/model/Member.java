@@ -3,6 +3,7 @@ package com.justdoings.member.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,7 @@ import com.justdoings.status.code.model.StatusCode;
 public class Member {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "mem_seq")
 	/** 會員編號 */
 	private Integer memSeq;
 	
@@ -36,9 +38,11 @@ public class Member {
 	/** 性別 */
 	private Integer sex;
 	
+	@Column(name = "mobile_phone")
 	/** 手機號碼 */
 	private String mobilePhone;
 	
+	@Column(name = "img_file_name")
 	/** 影像檔案名稱 */
 	private String imgFileName;
 	
@@ -53,27 +57,32 @@ public class Member {
 	/** UUID(忘記密碼) */
 	private String uuid;
 	
+	@Column(name = "uuid_dt")
 	/** UUID有效期限 */
 	private Date uuidDt;
 	
 	/** 生日 */
 	private Date birthday;
 	
+	@Column(name = "create_dt")
 	/** 建立時間 */
 	private Date createDt;
 
+	@Column(name = "disable_begin_dt")
 	/** 停權起日 */
 	private Date disableBeginDt;
 	
+	@Column(name = "disable_end_dt")
 	/** 停權迄日 */
 	private Date disableEndDt;
 	
+	@Column(name = "disable_desc")
 	/** 停權描述 */
 	private String disableDesc;
 	
 	/** 追蹤的主辦單位 */
 	@ManyToMany
-	@JoinTable(name="Organizer_Tracking", joinColumns=@JoinColumn(name="memSeq"), inverseJoinColumns=@JoinColumn(name="orgSeq"))
+	@JoinTable(name="organizer_tracking", joinColumns=@JoinColumn(name="memSeq"), inverseJoinColumns=@JoinColumn(name="orgSeq"))
 	private List<Organizer> organizerTracking;
 
 	public Integer getMemSeq() {

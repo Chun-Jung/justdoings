@@ -37,10 +37,16 @@ public class KeywordServiceImpl implements KeywordService {
 	public static void main(String[] args) throws InterruptedException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
 		KeywordService service = (KeywordService) context.getBean("keywordService");
+		
+		for(int i=0; i<3; i++){
+			service.insert("AngularJS 2");
+			Thread.sleep(1);
+		}
 
 		List<Keyword> result = service.getAllBy("AngularJS 2");
 		for(Keyword keyword : result){
 			System.out.println("word: " + keyword.getWord() + ", ts: " + keyword.getQueryTs());
+			service.delete(keyword);
 		}
 	}
 

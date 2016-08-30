@@ -3,15 +3,17 @@ package com.justdoings.keyword.model;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository("keywordDao")
-@Transactional(propagation = Propagation.REQUIRED)
+@Transactional(propagation = Propagation.MANDATORY)
 public class KeywordDaoImpl implements KeywordDao {
 	
 	@PersistenceContext
@@ -24,7 +26,14 @@ public class KeywordDaoImpl implements KeywordDao {
 
 	@Override
 	public void delete(Keyword keyword) {
-		entityManager.remove(keyword);
+		if(entityManager.contains(keyword)){
+			entityManager.remove(keyword);
+		}else{
+			KeywordId keywordId = new KeywordId();
+			BeanUtils.copyProperties(keyword, keywordId);
+			keyword = entityManager.getReference(Keyword.class, keywordId);
+			entityManager.remove(keyword);
+		}
 	}
 
 	@Override

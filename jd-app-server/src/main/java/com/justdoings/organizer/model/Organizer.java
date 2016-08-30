@@ -3,6 +3,7 @@ package com.justdoings.organizer.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ import com.justdoings.status.code.model.StatusCode;
 public class Organizer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "org_seq")
 	/** 主辦單位編號 */
 	private Integer orgSeq;
 	
