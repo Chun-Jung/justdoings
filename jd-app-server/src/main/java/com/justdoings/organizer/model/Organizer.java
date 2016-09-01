@@ -1,5 +1,6 @@
 package com.justdoings.organizer.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -9,16 +10,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Where;
 
 import com.justdoings.member.model.Member;
 import com.justdoings.status.code.model.StatusCode;
 
 @Entity
 @Table
-public class Organizer {
+public class Organizer implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "org_seq")
@@ -57,8 +61,8 @@ public class Organizer {
 	/** 影像檔案名稱 */
 	private String imgFileName;
 	
-	@ManyToOne
-	@JoinColumn(name="code", referencedColumnName="status")	
+	@JoinColumn(name = "status", referencedColumnName = "code")
+	@Where(clause = "statusSeq = 4")
 	/** 狀態碼 */
 	private StatusCode statusCode;
 	

@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.justdoings.act.model.Act;
 
 @Entity
 @Table
@@ -18,9 +21,9 @@ public class Ad {
 	private Integer adSeq;
 	
 	@ManyToOne
-	@Column(name = "act_seq")
+	@JoinColumn(name="actSeq")
 	/** 活動編號 */
-	private Integer actSeq;
+	private Act act;
 
 	@Column(name = "ad_url")
 	/** 活動網址 */
@@ -34,20 +37,20 @@ public class Ad {
 		this.adSeq = adSeq;
 	}
 
-	public Integer getActSeq() {
-		return actSeq;
-	}
-
-	public void setActSeq(Integer actSeq) {
-		this.actSeq = actSeq;
-	}
-
 	public String getAdUrl() {
 		return adUrl;
 	}
 
 	public void setAdUrl(String adUrl) {
 		this.adUrl = adUrl;
+	}
+
+	public Act getAct() {
+		return act;
+	}
+
+	public void setAct(Act act) {
+		this.act = act;
 	}
 	
 }
