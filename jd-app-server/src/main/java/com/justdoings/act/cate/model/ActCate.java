@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="act_cate")
+@Table(name = "act_cate")
 public class ActCate {
+	/** 活動分類編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "act_cate_seq")
-	/** 活動分類編號 */
 	private Integer actCateSeq;
 	
 	/** 分類名稱 */

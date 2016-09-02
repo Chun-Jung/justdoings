@@ -14,19 +14,19 @@ import com.justdoings.act.model.Act;
 @Entity
 @Table
 public class Ad {
+	/** 輪播編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ad_seq")
-	/** 輪播編號 */
 	private Integer adSeq;
 	
+	/** 活動編號 */
 	@ManyToOne
 	@JoinColumn(name="actSeq")
-	/** 活動編號 */
 	private Act act;
 
-	@Column(name = "ad_url")
 	/** 活動網址 */
+	@Column(name = "ad_url")
 	private String adUrl;
 
 	public Integer getAdSeq() {

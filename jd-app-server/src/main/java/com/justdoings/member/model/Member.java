@@ -1,6 +1,5 @@
 package com.justdoings.member.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,15 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.JoinColumnOrFormula;
-import org.hibernate.annotations.JoinColumnsOrFormulas;
-import org.hibernate.annotations.JoinFormula;
+import javax.persistence.Transient;
 
 import com.justdoings.organizer.model.Organizer;
 import com.justdoings.status.code.model.StatusCode;
@@ -26,10 +20,10 @@ import com.justdoings.status.code.model.StatusCode;
 @Entity
 @Table
 public class Member {
+	/** 會員編號 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "mem_seq")
-	/** 會員編號 */
 	private Integer memSeq;
 
 	/** 信箱(帳號) */
@@ -44,12 +38,12 @@ public class Member {
 	/** 性別 */
 	private Integer sex;
 
-	@Column(name = "mobile_phone")
 	/** 手機號碼 */
+	@Column(name = "mobile_phone")
 	private String mobilePhone;
 
-	@Column(name = "img_file_name")
 	/** 影像檔案名稱 */
+	@Column(name = "img_file_name")
 	private String imgFileName;
 
 	/** 簡介 */
@@ -61,27 +55,27 @@ public class Member {
 	/** UUID(忘記密碼) */
 	private String uuid;
 
-	@Column(name = "uuid_dt")
 	/** UUID有效期限 */
+	@Column(name = "uuid_dt")
 	private Date uuidDt;
 
 	/** 生日 */
 	private Date birthday;
 
-	@Column(name = "create_dt")
 	/** 建立時間 */
+	@Column(name = "create_dt")
 	private Date createDt;
 
-	@Column(name = "disable_begin_dt")
 	/** 停權起日 */
+	@Column(name = "disable_begin_dt")
 	private Date disableBeginDt;
 
-	@Column(name = "disable_end_dt")
 	/** 停權迄日 */
+	@Column(name = "disable_end_dt")
 	private Date disableEndDt;
 
-	@Column(name = "disable_desc")
 	/** 停權描述 */
+	@Column(name = "disable_desc")
 	private String disableDesc;
 
 	/** 追蹤的主辦單位 */
@@ -90,6 +84,7 @@ public class Member {
 	private List<Organizer> organizerTracking;
 	
 	/** 狀態碼封裝物件 */
+	@Transient
 	private StatusCode statusCode;
 
 	public Integer getMemSeq() {

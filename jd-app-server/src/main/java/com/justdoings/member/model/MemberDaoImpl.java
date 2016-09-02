@@ -2,6 +2,7 @@ package com.justdoings.member.model;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,7 +24,9 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	@Transactional(readOnly = true)
 	public Member findBy(String email) {
-		return entityManager.find(Member.class, email);
+		TypedQuery<Member> tq = entityManager.createQuery("FROM Member WHERE email=?", Member.class);
+		tq.setParameter(1, email);
+		return tq.getSingleResult();
 	}
 
 	@Override

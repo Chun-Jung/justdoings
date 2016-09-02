@@ -14,6 +14,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
 
@@ -22,16 +23,16 @@ import com.justdoings.status.code.model.StatusCode;
 
 @Entity
 @Table
-public class Organizer implements Serializable {
+public class Organizer {
+	/** 主辦單位編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "org_seq")
-	/** 主辦單位編號 */
 	private Integer orgSeq;
 	
+	/** 會員編號 */
 	@ManyToOne
 	@JoinColumn(name="memSeq")
-	/** 會員編號 */
 	private Member member;
 	
 	/** 主辦單位名稱 */
@@ -61,13 +62,11 @@ public class Organizer implements Serializable {
 	/** 影像檔案名稱 */
 	private String imgFileName;
 	
-	@JoinColumn(name = "status", referencedColumnName = "code")
-	@Where(clause = "statusSeq = 4")
 	/** 狀態碼 */
-	private StatusCode statusCode;
+	private Integer status;
 	
-	@ManyToMany(mappedBy="organizerTracking")
 	/** 追蹤的使用者 */
+	@ManyToMany(mappedBy="organizerTracking")
 	private List<Member> trackers;
 	
 	/** 建立時間 */
@@ -75,6 +74,10 @@ public class Organizer implements Serializable {
 	
 	/** 最後更新時間 */
 	private Date updateDt;
+	
+	/** 狀態碼封裝物件 */
+	@Transient
+	private StatusCode statusCode;
 
 	public Integer getOrgSeq() {
 		return orgSeq;
@@ -194,6 +197,14 @@ public class Organizer implements Serializable {
 
 	public void setUpdateDt(Date updateDt) {
 		this.updateDt = updateDt;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

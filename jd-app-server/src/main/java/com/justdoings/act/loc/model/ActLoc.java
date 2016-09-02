@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "act_loc")
 public class ActLoc {
+	/** 活動地區編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "act_loc_seq")
-	/** 活動地區編號 */
 	private Integer actLocSeq;
 	
 	/** 地區名稱 */

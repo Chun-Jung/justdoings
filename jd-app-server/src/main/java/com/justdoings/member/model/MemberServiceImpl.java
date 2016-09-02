@@ -37,6 +37,10 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(readOnly = true)
 	public Member findBy(Integer memSeq) {
 		Member result = memberDao.findBy(memSeq);
+		StatusCodeId primaryKey = new StatusCodeId();
+		primaryKey.setStatusSeq(3);
+		primaryKey.setCode(result.getStatus());
+		result.setStatusCode(statusCodeDao.findBy(primaryKey));
 		return result;
 	}
 

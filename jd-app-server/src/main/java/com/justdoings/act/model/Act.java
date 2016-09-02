@@ -18,14 +18,14 @@ import com.justdoings.status.code.model.StatusCode;
 @Entity
 @Table
 public class Act {
+	/** 活動編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	/** 活動編號 */
 	private Integer actSeq;
 	
+	/** 主辦單位 */
 	@ManyToOne
 	@JoinColumn(name="orgSeq")
-	/** 主辦單位 */
 	private Organizer organizer;
 	
 	@ManyToOne
@@ -33,9 +33,9 @@ public class Act {
 	/** 活動分類 */
 	private ActCate actCate;
 	
+	/** 活動地區 */
 	@ManyToOne
 	@JoinColumn(name="actLocSeq")
-	/** 活動地區 */
 	private ActLoc actLoc;
 	
 	/** 活動地址 */

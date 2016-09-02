@@ -1,19 +1,14 @@
 package com.justdoings.keyword.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GeneratorType;
 
 @Entity
 @NamedQueries({
@@ -21,14 +16,14 @@ import org.hibernate.annotations.GeneratorType;
 		@NamedQuery(name = "Keyword.findAllByWord", query = "SELECT K from Keyword K WHERE K.word = :word")})
 @Table
 @IdClass(KeywordId.class)
-public class Keyword implements Serializable {
-	@Id
+public class Keyword {
 	/** 字詞 */
+	@Id
 	private String word;
 
+	/** 查詢時戳 */
 	@Id
 	@Column(name = "query_ts")
-	/** 查詢時戳 */
 	private Timestamp queryTs;
 
 	public String getWord() {

@@ -1,7 +1,5 @@
 package com.justdoings.status.code.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,15 +11,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "status_code")
 @IdClass(StatusCodeId.class)
-public class StatusCode implements Serializable {
+public class StatusCode {
+	/** 狀態碼編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "status_seq")
-	/** 狀態碼編號 */
 	private Integer statusSeq;
 	
-	@Id
 	/** 狀態碼代號 */
+	@Id
 	private Integer code;
 	
 	/** 狀態名稱 */
