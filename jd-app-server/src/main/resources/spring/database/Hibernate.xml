@@ -15,9 +15,10 @@
 <!-- 				<value>com.justdoings.act.model</value> -->
 <!-- 				<value>com.justdoings.ad.model</value> -->
 <!-- 				<value>com.justdoings.keyword.model</value> -->
-				<value>com.justdoings.member.model</value>
-				<value>com.justdoings.organizer.model</value>
-				<value>com.justdoings.status.code.model</value>
+<!-- 				<value>com.justdoings.member.model</value> -->
+<!-- 				<value>com.justdoings.organizer.model</value> -->
+<!-- 				<value>com.justdoings.status.code.model</value> -->
+				<value>com.justdoings.**.model</value>
 			</list>
 		</property>
 		<property name="dataSource" ref="dataSource" />

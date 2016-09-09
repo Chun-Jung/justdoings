@@ -1,6 +1,5 @@
 package com.justdoings.organizer.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.Where;
 
 import com.justdoings.member.model.Member;
 import com.justdoings.status.code.model.StatusCode;
@@ -32,7 +28,7 @@ public class Organizer {
 	
 	/** 會員編號 */
 	@ManyToOne
-	@JoinColumn(name="memSeq")
+	@JoinColumn(name="mem_seq")
 	private Member member;
 	
 	/** 主辦單位名稱 */
@@ -42,9 +38,11 @@ public class Organizer {
 	private String addr;
 	
 	/** 電話號碼 */
+	@Column(name = "tel_no")
 	private String telNo;
 	
 	/** 傳真號碼 */
+	@Column(name = "fax_no")
 	private String faxNo;
 	
 	/** 信箱 */
@@ -54,12 +52,14 @@ public class Organizer {
 	private String link;
 	
 	/** 短連結 */
+	@Column(name = "short_link")
 	private String shortLink;
 	
 	/** 簡介 */
 	private String profile;
 	
 	/** 影像檔案名稱 */
+	@Column(name = "img_file_name")
 	private String imgFileName;
 	
 	/** 狀態碼 */
@@ -70,9 +70,11 @@ public class Organizer {
 	private List<Member> trackers;
 	
 	/** 建立時間 */
+	@Column(name = "create_dt", insertable = false)
 	private Date createDt;
 	
 	/** 最後更新時間 */
+	@Column(name = "update_dt")
 	private Date updateDt;
 	
 	/** 狀態碼封裝物件 */

@@ -1,4 +1,4 @@
-package com.justdoings.act.cate.model;
+package com.justdoings.act.category.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,23 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "act_cate")
-public class ActCate {
+@Table
+public class Category {
 	/** 活動分類編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "act_cate_seq")
-	private Integer actCateSeq;
+	@Column(name = "cate_seq")
+	private Integer cateSeq;
 	
 	/** 分類名稱 */
 	private String name;
-
-	public Integer getActCateSeq() {
-		return actCateSeq;
+	
+	public Integer getCateSeq() {
+		return cateSeq;
 	}
 
-	public void setActCateSeq(Integer actCateSeq) {
-		this.actCateSeq = actCateSeq;
+	public void setCateSeq(Integer cateSeq) {
+		this.cateSeq = cateSeq;
 	}
 
 	public String getName() {

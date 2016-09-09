@@ -22,7 +22,7 @@ public class Ad {
 	
 	/** 活動編號 */
 	@ManyToOne
-	@JoinColumn(name="actSeq")
+	@JoinColumn(name="act_Seq")
 	private Act act;
 
 	/** 活動網址 */

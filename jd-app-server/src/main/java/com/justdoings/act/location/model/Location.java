@@ -1,4 +1,4 @@
-package com.justdoings.act.loc.model;
+package com.justdoings.act.location.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,23 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "act_loc")
-public class ActLoc {
+@Table
+public class Location {
 	/** 活動地區編號 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "act_loc_seq")
-	private Integer actLocSeq;
+	@Column(name = "loc_seq")
+	private Integer locSeq;
 	
 	/** 地區名稱 */
 	private String name;
 
-	public Integer getActLocSeq() {
-		return actLocSeq;
+	public Integer getLocSeq() {
+		return locSeq;
 	}
 
-	public void setActLocSeq(Integer actLocSeq) {
-		this.actLocSeq = actLocSeq;
+	public void setLocSeq(Integer locSeq) {
+		this.locSeq = locSeq;
 	}
 
 	public String getName() {

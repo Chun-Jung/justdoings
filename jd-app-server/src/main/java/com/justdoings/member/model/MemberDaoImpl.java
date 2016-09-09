@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("memberDao")
 @Transactional(propagation = Propagation.MANDATORY)
 public class MemberDaoImpl implements MemberDao {
-	
+
 	@PersistenceContext
 	EntityManager entityManager;
 
@@ -38,15 +38,15 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	@Transactional
 	public void update(Member member) {
-		entityManager.persist(member);
+		entityManager.merge(member);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Member member) {
-		if(entityManager.contains(member)){
+		if (entityManager.contains(member)) {
 			entityManager.remove(member);
-		}else{
+		} else {
 			member = entityManager.getReference(Member.class, member.getMemSeq());
 			entityManager.remove(member);
 		}

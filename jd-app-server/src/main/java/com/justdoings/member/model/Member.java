@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,8 @@ public class Member {
 	private String profile;
 
 	/** 狀態碼 */
-	private Integer status;
+	@Column(insertable = false)
+ 	private Integer status;
 
 	/** UUID(忘記密碼) */
 	private String uuid;
@@ -80,7 +82,7 @@ public class Member {
 
 	/** 追蹤的主辦單位 */
 	@ManyToMany
-	@JoinTable(name = "organizer_tracking", joinColumns = @JoinColumn(name = "memSeq") , inverseJoinColumns = @JoinColumn(name = "orgSeq") )
+	@JoinTable(name = "organizer_tracking", joinColumns = @JoinColumn(name = "mem_seq") , inverseJoinColumns = @JoinColumn(name = "org_seq") )
 	private List<Organizer> organizerTracking;
 	
 	/** 狀態碼封裝物件 */
