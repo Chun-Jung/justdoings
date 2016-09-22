@@ -27,9 +27,9 @@ public interface ActDao {
 	void delete(Act act);
 	
 	/**
-	 * 查詢是否有重複的預設連結
-	 * @param defaulLink 預設連結
-	 * @return int
+	 * 查詢是否有重複的短連結
+	 * @param shortLink 短連結
+	 * @return int 筆數
 	 */
-	int countBy(String defaulLink);
+	Long countBy(String shortLink);
 }

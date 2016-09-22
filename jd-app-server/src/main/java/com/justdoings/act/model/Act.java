@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -22,6 +24,9 @@ import com.justdoings.organizer.model.Organizer;
 import com.justdoings.status.code.model.StatusCode;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Act.countByShortLink", query="SELECT COUNT(a) FROM Act a WHERE a.shortLink = :shortLink")
+})
 @Table
 public class Act {
 	/** 活動編號 */

@@ -26,12 +26,7 @@ public class OrganizerDaoImpl implements OrganizerDao {
 
 	@Override
 	public void update(Organizer org) {
-		if(entityManager.contains(org)){
-			entityManager.merge(org);
-		}else{
-			org = entityManager.getReference(Organizer.class, org.getOrgSeq());
-			entityManager.merge(org);
-		}
+		entityManager.merge(org);
 	}
 
 	@Override

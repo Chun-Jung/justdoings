@@ -28,12 +28,7 @@ public class ActDaoImpl implements ActDao {
 
 	@Override
 	public void update(Act act) {
-		if(entityManager.contains(act)){
-			entityManager.merge(act);
-		}else{
-			act = entityManager.getReference(Act.class, act.getActSeq());
-			entityManager.merge(act);
-		}
+		entityManager.merge(act);
 	}
 
 	@Override
@@ -47,10 +42,10 @@ public class ActDaoImpl implements ActDao {
 	}
 
 	@Override
-	public int countBy(String defaulLink) {
-		Query query = entityManager.createQuery("COUNT(a) FROM Act a WHERE a.defalut_link = :defaultLink");
-		query.setParameter("defaultLink", defaulLink);
-		return (Integer) query.getSingleResult();
+	public Long countBy(String shortLink) {
+		TypedQuery<Long> query = entityManager.createNamedQuery("Act.countByShortLink", Long.class);
+		query.setParameter("shortLink", shortLink);
+		return query.getSingleResult();
 	}
 
 }

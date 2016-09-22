@@ -31,4 +31,12 @@ public interface ActService {
 	 * @param act 活動編號封裝物件
 	 */
 	void delete(Act act);
+	
+	
+	/**
+	 * 查詢是否有重複的短連結
+	 * @param shortLink 短連結
+	 * @return int 筆數
+	 */
+	Long countBy(String shortLink);
 }

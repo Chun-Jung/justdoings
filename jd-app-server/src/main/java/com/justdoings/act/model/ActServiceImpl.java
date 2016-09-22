@@ -61,6 +61,12 @@ public class ActServiceImpl implements ActService {
 		actDao.delete(act);
 	}
 	
+	@Override
+	@Transactional(readOnly = true)
+	public Long countBy(String shortLink) {
+		return actDao.countBy(shortLink);
+	}
+	
 	public static void main(String[] args){
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
 		MemberService memService = (MemberService) context.getBean("memberService");
@@ -101,8 +107,17 @@ public class ActServiceImpl implements ActService {
 		act.setStatus(200);
 		actService.insert(act);
 		
-		actService.delete(act);
+		Act act2 = actService.findBy(act.getActSeq());
+		act2.setStatus(300);
+		act2.setEndDt(DateUtils.getDate(2017, 02, 01, 21, 30, 0));
+		act2.getLocation().setLocSeq(3);
+		actService.update(act2);
+		
+		System.out.println("shortLink count: " + actService.countBy("justdoings-present"));
+		
+		actService.delete(act2);
 		orgService.delete(org);
 		memService.delete(member);
 	}
+
 }
