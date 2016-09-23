@@ -15,7 +15,8 @@ import com.justdoings.act.model.Act;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Tag.findByActSeq", query="SELECT COUNT(a) FROM Act a WHERE a.shortLink = :shortLink")
+	@NamedQuery(name="Tag.findByActSeq", query="SELECT COUNT(t) FROM Tag t WHERE t.act.actSeq = :actSeq"),
+	@NamedQuery(name="Tag.deleteByActSeq", query="DELETE FROM Tag t WHERE t.act.actSeq = :actSeq")
 })
 @Table
 public class Tag {

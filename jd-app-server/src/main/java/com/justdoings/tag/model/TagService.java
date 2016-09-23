@@ -34,4 +34,11 @@ public interface TagService {
 	 * @return int 刪除比數
 	 */
 	int deleteBy(Integer actSeq);
+	
+	/**
+	 * 新增多比標籤
+	 * @param actSeq 活動編號
+	 * @param tags 多筆標籤
+	 */
+	void insertBy(Integer actSeq, String... tags);
 }
