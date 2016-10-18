@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.justdoings.member.model.Member;
 import com.justdoings.member.model.MemberService;
 import com.justdoings.status.code.model.StatusCode;
-import com.justdoings.status.code.model.StatusCodeDao;
-import com.justdoings.status.code.model.StatusCodeId;
 import com.justdoings.status.code.model.StatusCodeService;
 import com.justdoings.status.code.model.StatusEnum;
 
