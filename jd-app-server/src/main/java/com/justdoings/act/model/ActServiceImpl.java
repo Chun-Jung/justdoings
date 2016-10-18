@@ -29,14 +29,14 @@ public class ActServiceImpl implements ActService {
 
 	@Override
 	@Transactional
-	public void insert(Act act) {
-		actDao.insert(act);
+	public void saveOrUpdate(Act act) {
+		actDao.saveOrUpdate(act);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Act findBy(Integer actSeq) {
-		Act act = actDao.findBy(actSeq);
+	public Act findOne(Integer actSeq) {
+		Act act = actDao.findOne(actSeq);
 		StatusCode memberStatus = statusCodeService.findBy(StatusEnum.Act, act.getStatus());
 		act.setStatusCode(memberStatus);
 		return act;
@@ -44,21 +44,14 @@ public class ActServiceImpl implements ActService {
 
 	@Override
 	@Transactional
-	public void update(Act act) {
-		actDao.update(act);
-	}
-
-	@Override
-	@Transactional
 	public void delete(Integer actSeq) {
-		Act act = this.findBy(actSeq);
-		this.delete(act);
+		actDao.delete(actSeq);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Act act) {
-		actDao.delete(act);
+		this.delete(act.getActSeq());
 	}
 	
 	@Override
@@ -81,13 +74,13 @@ public class ActServiceImpl implements ActService {
 		member.setName("test");
 		member.setPassword("test");
 		member.setSex(1);
-		memService.insert(member);
+		memService.saveOrUpdate(member);
 		Organizer org = new Organizer();
 		org.setMember(member);
 		org.setName("讀書會");
 		org.setEmail(member.getEmail());
 		org.setStatus(100);
-		orgService.insert(org);
+		orgService.saveOrUpdate(org);
 		
 		Act act = new Act();
 		act.setOrganizer(org);
@@ -105,13 +98,13 @@ public class ActServiceImpl implements ActService {
 		act.setIsPubAct(1);
 		act.setIsPubInfo(1);
 		act.setStatus(200);
-		actService.insert(act);
+		actService.saveOrUpdate(act);
 		
-		Act act2 = actService.findBy(act.getActSeq());
+		Act act2 = actService.findOne(act.getActSeq());
 		act2.setStatus(300);
 		act2.setEndDt(DateUtils.getDate(2017, 02, 01, 21, 30, 0));
 		act2.getLocation().setLocSeq(3);
-		actService.update(act2);
+		actService.saveOrUpdate(act2);
 		
 		System.out.println("shortLink count: " + actService.countBy("justdoings-present"));
 		

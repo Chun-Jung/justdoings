@@ -11,31 +11,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("actDao")
 @Transactional(propagation = Propagation.MANDATORY)
 public class ActDaoImpl implements ActDao {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
-	public void insert(Act act) {
-		entityManager.persist(act);
+	public void saveOrUpdate(Act act) {
+		if (act.getActSeq() == null) {
+			entityManager.persist(act);
+		} else if (!entityManager.contains(act)) {
+			entityManager.merge(act);
+		}
 	}
-	
+
 	@Override
-	public Act findBy(Integer actSeq) {
+	public Act findOne(Integer actSeq) {
 		return entityManager.find(Act.class, actSeq);
 	}
 
 	@Override
-	public void update(Act act) {
-		entityManager.merge(act);
-	}
-
-	@Override
-	public void delete(Act act) {
-		if(entityManager.contains(act)){
-			entityManager.remove(act);
-		}else{
-			act = entityManager.getReference(Act.class, act.getActSeq());
+	public void delete(Integer actSeq) {
+		Act act = findOne(actSeq);
+		if(act != null){
 			entityManager.remove(act);
 		}
 	}

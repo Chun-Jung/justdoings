@@ -16,34 +16,26 @@ public class AdServiceImpl implements AdService {
 
 	@Override
 	@Transactional
-	public void insert(Ad ad) {
-		adDao.insert(ad);
+	public void saveOrUpdate(Ad ad) {
+		adDao.saveOrUpdate(ad);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Ad findBy(Integer adSeq) {
-		return adDao.findBy(adSeq);
-	}
-
-	@Override
-	@Transactional
-	public void update(Ad ad) {
-		adDao.update(ad);
+	public Ad findOne(Integer adSeq) {
+		return adDao.findOne(adSeq);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Ad ad) {
-		adDao.delete(ad);
+		adDao.delete(ad.getAdSeq());
 	}
 
 	@Override
 	@Transactional
 	public void delete(Integer adSeq) {
-		Ad ad = new Ad();
-		ad.setAdSeq(adSeq);
-		this.delete(ad);
+		adDao.delete(adSeq);
 	}
 
 	public static void main(String[] args){
@@ -54,11 +46,11 @@ public class AdServiceImpl implements AdService {
 		Act act = new Act();
 		act.setActSeq(1);
 		ad.setAct(act);
-		service.insert(ad);
+		service.saveOrUpdate(ad);
 		
-		Ad ad2 = service.findBy(ad.getAdSeq());
+		Ad ad2 = service.findOne(ad.getAdSeq());
 		ad2.setUrl("https://www.yahoo.com.tw");
-		service.update(ad2);
+		service.saveOrUpdate(ad2);
 		
 		service.delete(ad2.getAdSeq());
 	}

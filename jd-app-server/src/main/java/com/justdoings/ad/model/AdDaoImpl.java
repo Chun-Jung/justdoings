@@ -15,27 +15,23 @@ public class AdDaoImpl implements AdDao {
 	private EntityManager entityManager;
 
 	@Override
-	public void insert(Ad ad) {
-		entityManager.persist(ad);
+	public void saveOrUpdate(Ad ad) {
+		if(ad.getAdSeq() == null){
+			entityManager.persist(ad);
+		}else if(!entityManager.contains(ad)){
+			entityManager.merge(ad);
+		}
 	}
 
 	@Override
-	public Ad findBy(Integer adSeq) {
-		Ad result = entityManager.find(Ad.class, adSeq);
-		return result;
+	public Ad findOne(Integer adSeq) {
+		return entityManager.find(Ad.class, adSeq);
 	}
 
 	@Override
-	public void update(Ad ad) {
-		entityManager.merge(ad);
-	}
-
-	@Override
-	public void delete(Ad ad) {
-		if(entityManager.contains(ad)){
-			entityManager.remove(ad);
-		}else{
-			ad = entityManager.getReference(Ad.class, ad.getAdSeq());
+	public void delete(Integer adSeq) {
+		Ad ad = entityManager.find(Ad.class, adSeq);
+		if(ad != null){
 			entityManager.remove(ad);
 		}
 	}

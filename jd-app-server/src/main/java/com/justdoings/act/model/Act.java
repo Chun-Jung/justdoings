@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,102 +26,101 @@ import com.justdoings.status.code.model.StatusCode;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Act.countByShortLink", query="SELECT COUNT(a) FROM Act a WHERE a.shortLink = :shortLink")
-})
+		@NamedQuery(name = "Act.countByShortLink", query = "SELECT COUNT(a) FROM Act a WHERE a.shortLink = :shortLink") })
 @Table
 public class Act {
 	/** 活動編號 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "act_seq")
 	private Integer actSeq;
-	
+
 	/** 主辦單位 */
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="org_seq")
+	@JoinColumn(name = "org_seq")
 	private Organizer organizer;
-	
+
 	/** 活動地區 */
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="loc_seq")
+	@JoinColumn(name = "loc_seq")
 	private Location location;
-	
+
 	/** 活動地址 */
 	private String addr;
-	
+
 	/** 地址經度 */
 	@Column(name = "addr_lon")
 	private Double addrLon;
-	
+
 	/** 地址緯度 */
 	@Column(name = "addr_lat")
 	private Double addrLat;
-	
+
 	/** 標題 */
 	private String title;
-	
+
 	/** 內容 */
 	private String content;
-	
+
 	/** 簡介 */
 	private String profile;
-	
+
 	/** 注意事項 */
 	private String attention;
-	
+
 	/** 退費方式 */
 	@Column(name = "refunds_way")
 	private Integer refundsWay;
-	
+
 	/** 海報檔案名稱 */
 	@Column(name = "poster_file_name")
 	private String posterFileName;
-	
+
 	/** 活動網址(站外) */
 	private String link;
-	
+
 	/** 短連結 */
 	@Column(name = "short_link")
 	private String shortLink;
-	
+
 	/** 開始時間 */
 	@Column(name = "begin_dt")
 	private Date beginDt;
-	
+
 	/** 結束時間 */
 	@Column(name = "end_dt")
 	private Date endDt;
-	
+
 	/** 建立時間 */
-	@Column(name = "create_dt", insertable = false)
+	@Column(name = "create_dt", insertable = false, updatable = false)
 	private Date createDt;
-	
+
 	/** 上架時間 */
 	@Column(name = "on_shelf_dt")
 	private Date onShelfDt;
-	
+
 	@Column(name = "click_no", insertable = false)
 	private Integer clickNo;
-	
+
 	/** 是否公開售票資訊 */
 	@Column(name = "is_pub_info")
 	private Integer isPubInfo;
-	
+
 	/** 是否為公開活動 */
 	@Column(name = "is_pub_act")
 	private Integer isPubAct;
-	
+
 	/** 是否為推薦活動 */
 	@Column(name = "is_recomm", insertable = false)
 	private Integer isRecomm;
-	
+
 	/** 活動狀態碼 */
 	private Integer status;
-	
+
 	/** 活動狀態封裝物件 */
 	@Transient
 	private StatusCode statusCode;
-	
+
 	/** 活動分類 */
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "act_cate", joinColumns = @JoinColumn(name = "act_seq") , inverseJoinColumns = @JoinColumn(name = "cate_seq") )
@@ -325,7 +325,5 @@ public class Act {
 	public void setClickNo(Integer clickNo) {
 		this.clickNo = clickNo;
 	}
-	
+
 }
-	
-	

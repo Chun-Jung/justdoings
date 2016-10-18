@@ -5,20 +5,14 @@ public interface ActService {
 	 * 新增活動
 	 * @param act 活動
 	 */
-	void insert(Act act);
+	void saveOrUpdate(Act act);
 	
 	/**
 	 * 用活動編號搜尋活動
 	 * @param actSeq 活動編號
 	 * @return Act
 	 */
-	Act findBy(Integer actSeq);
-	
-	/**
-	 * 更新活動
-	 * @param act 活動
-	 */
-	void update(Act act);
+	Act findOne(Integer actSeq);
 	
 	/**
 	 * 刪除活動

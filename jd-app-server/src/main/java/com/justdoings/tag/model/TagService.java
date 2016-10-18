@@ -7,7 +7,7 @@ public interface TagService {
 	 * 新增標籤
 	 * @param tag 標籤
 	 */
-	void insert(Tag tag);
+	void save(Tag tag);
 	
 	/**
 	 * 搜尋標籤
@@ -40,5 +40,5 @@ public interface TagService {
 	 * @param actSeq 活動編號
 	 * @param tags 多筆標籤
 	 */
-	void insertBy(Integer actSeq, String... tags);
+	void saveBy(Integer actSeq, String... tags);
 }

@@ -1,6 +1,7 @@
 package com.justdoings.keyword.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +27,7 @@ public class Keyword {
 	@Id
 	@Column(name = "query_ts")
 	private Timestamp queryTs;
-
+	
 	public String getWord() {
 		return word;
 	}

@@ -28,14 +28,14 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public void insert(Member member) {
-		memberDao.insert(member);
+	public void saveOrUpdate(Member member) {
+		memberDao.saveOrUpdate(member);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Member findBy(String email) {
-		Member result = memberDao.findBy(email);
+	public Member findOneBy(String email) {
+		Member result = memberDao.findOneBy(email);
 		StatusCode memberStatus = statusCodeService.findBy(StatusEnum.Member, result.getStatus());
 		result.setStatusCode(memberStatus);
 		result.getOrganizerTracking().size(); // lazy -> eager
@@ -44,31 +44,23 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Member findBy(Integer memSeq) {
-		Member result = memberDao.findBy(memSeq);
+	public Member findOne(Integer memSeq) {
+		Member result = memberDao.findOne(memSeq);
 		StatusCode memberStatus = statusCodeService.findBy(StatusEnum.Member, result.getStatus());
 		result.setStatusCode(memberStatus);
 		result.getOrganizerTracking().size(); // lazy -> eager
 		return result;
-	}
-
-	@Override
-	@Transactional
-	public void update(Member member) {
-		memberDao.update(member);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Member member) {
-		memberDao.delete(member);
+		this.delete(member.getMemSeq());
 	}
 
 	@Override
 	public void delete(Integer memSeq) {
-		Member member = new Member();
-		member.setMemSeq(memSeq);
-		this.delete(member);
+		memberDao.delete(memSeq);
 	}
 
 	public static void main(String[] args){
@@ -77,26 +69,25 @@ public class MemberServiceImpl implements MemberService {
 		
 		Member member = new Member();
 		member.setBirthday(new Date());
-		member.setCreateDt(new Date());
 		member.setEmail("test@justdoings.com");
 		member.setMobilePhone("+886 910-123-456");
 		member.setName("test");
 		member.setPassword("test");
 		member.setSex(1);
-		service.insert(member);
+		service.saveOrUpdate(member);
 
-		Member member2 = service.findBy("test@justdoings.com");
+		Member member2 = service.findOneBy("test@justdoings.com");
 		System.out.println(member2);
 
 		member2.setSex(2);
 		member2.setName("TEST");
 		member2.setPassword("TEST");
 		member2.setStatus(300);
-		service.update(member2);
+		service.saveOrUpdate(member2);
 
 		service.delete(member2);
 		
-		Member testMember = service.findBy(2);
+		Member testMember = service.findOne(2);
 		for(Organizer org : testMember.getOrganizerTracking()){
 			System.out.println(org.getName());
 		}

@@ -27,36 +27,29 @@ public class OrganizerServiceImpl implements OrganizerService {
 
 	@Override
 	@Transactional
-	public void insert(Organizer org) {
-		organizerDao.insert(org);
+	public void saveOrUpdate(Organizer org) {
+		organizerDao.saveOrUpdate(org);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Organizer findBy(Integer orgSeq) {
-		Organizer org = organizerDao.findBy(orgSeq);
+	public Organizer findOne(Integer orgSeq) {
+		Organizer org = organizerDao.findOne(orgSeq);
 		StatusCode statusCode = statusCodeService.findBy(StatusEnum.Orginizer, org.getStatus());
-		org.setStatusCode(statusCode);
+		org.setStatusCode(statusCode); // not lazy catch
 		return org;
 	}
 
 	@Override
 	@Transactional
-	public void update(Organizer org) {
-		organizerDao.update(org);
-	}
-
-	@Override
-	@Transactional
 	public void delete(Integer orgSeq) {
-		Organizer org = this.findBy(orgSeq);
-		this.delete(org);
+		organizerDao.delete(orgSeq);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Organizer org) {
-		organizerDao.delete(org);
+		delete(org.getOrgSeq());
 	}
 	
 	public static void main(String[] args){
@@ -67,13 +60,12 @@ public class OrganizerServiceImpl implements OrganizerService {
 		
 		Member member = new Member();
 		member.setBirthday(new Date());
-		member.setCreateDt(new Date());
 		member.setEmail("test@justdoings.com");
 		member.setMobilePhone("+886 910-123-456");
 		member.setName("test");
 		member.setPassword("test");
 		member.setSex(1);
-		memService.insert(member);
+		memService.saveOrUpdate(member);
 
 		System.out.println("1. insert");
 		Organizer org = new Organizer();
@@ -81,12 +73,12 @@ public class OrganizerServiceImpl implements OrganizerService {
 		org.setName("讀書會");
 		org.setEmail(member.getEmail());
 		org.setStatus(100);
-		orgService.insert(org);
+		orgService.saveOrUpdate(org);
 		System.out.println("memSeq: " + org.getOrgSeq() + "\n");
 		
 		System.out.println("2. update");
 		org.setStatus(200);
-		orgService.update(org);
+		orgService.saveOrUpdate(org);
 		System.out.println("status: " + org.getStatus() + "\n");
 		
 		System.out.println("3. delete");

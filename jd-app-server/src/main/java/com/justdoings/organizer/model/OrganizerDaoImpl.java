@@ -10,31 +10,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("organizerDao")
 @Transactional(propagation = Propagation.MANDATORY)
 public class OrganizerDaoImpl implements OrganizerDao {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
-	public void insert(Organizer org) {
-		entityManager.persist(org);
+	public void saveOrUpdate(Organizer org) {
+		if (org.getOrgSeq() == null) {
+			entityManager.persist(org);
+		} else if (!entityManager.contains(org)) {
+			entityManager.merge(org);
+		}
 	}
 
 	@Override
-	public Organizer findBy(Integer orgSeq) {
+	public Organizer findOne(Integer orgSeq) {
 		return entityManager.find(Organizer.class, orgSeq);
 	}
 
 	@Override
-	public void update(Organizer org) {
-		entityManager.merge(org);
-	}
-
-	@Override
-	public void delete(Organizer org) {
-		if(entityManager.contains(org)){
-			entityManager.remove(org);
-		}else{
-			org = entityManager.getReference(Organizer.class, org.getOrgSeq());
+	public void delete(Integer orgSeq) {
+		Organizer org = findOne(orgSeq);
+		if(org != null){
 			entityManager.remove(org);
 		}
 	}

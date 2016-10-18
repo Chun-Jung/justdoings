@@ -17,13 +17,17 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	@Transactional
-	public void insert(Member member) {
-		entityManager.persist(member);
+	public void saveOrUpdate(Member member) {
+		if(member.getMemSeq() == null){
+			entityManager.persist(member);
+		} else if(!entityManager.contains(member)){
+			entityManager.merge(member);
+		}
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Member findBy(String email) {
+	public Member findOneBy(String email) {
 		TypedQuery<Member> tq = entityManager.createQuery("FROM Member WHERE email=?", Member.class);
 		tq.setParameter(1, email);
 		return tq.getSingleResult();
@@ -31,23 +35,15 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Member findBy(Integer memSeq) {
+	public Member findOne(Integer memSeq) {
 		return entityManager.find(Member.class, memSeq);
 	}
 
 	@Override
 	@Transactional
-	public void update(Member member) {
-		entityManager.merge(member);
-	}
-
-	@Override
-	@Transactional
-	public void delete(Member member) {
-		if (entityManager.contains(member)) {
-			entityManager.remove(member);
-		} else {
-			member = entityManager.getReference(Member.class, member.getMemSeq());
+	public void delete(Integer memSeq) {
+		Member member = findOne(memSeq);
+		if(member != null){
 			entityManager.remove(member);
 		}
 	}

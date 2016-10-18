@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.justdoings.act.model.Act;
@@ -19,21 +18,20 @@ public class TagServiceImpl implements TagService {
 
 	@Override
 	@Transactional
-	public void insert(Tag tag) {
-		tagDao.insert(tag);
+	public void save(Tag tag) {
+		tagDao.save(tag);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Tag> findBy(Integer actSeq) {
-		List<Tag> result = tagDao.findBy(actSeq);
-		return result;
+		return tagDao.findByActSeq(actSeq);
 	}
 
 	@Override
 	@Transactional
 	public void update(Tag tag) {
-		tagDao.update(tag);
+		tagDao.save(tag);
 	}
 
 	@Override
@@ -45,20 +43,17 @@ public class TagServiceImpl implements TagService {
 	@Override
 	@Transactional
 	public int deleteBy(Integer actSeq) {
-		return tagDao.deleteBy(actSeq);
+		return tagDao.deleteByActSeq(actSeq);
 	}
 	
 	@Override
 	@Transactional
-	public void insertBy(Integer actSeq, String... tags) {
-		Act act = new Act();
-		act.setActSeq(actSeq);
-		
+	public void saveBy(Integer actSeq, String... tags) {
 		for(String tagName : tags){
 			Tag tag = new Tag();
-			tag.setAct(act);
+			tag.setActSeq(actSeq);
 			tag.setName(tagName);
-			this.insert(tag);
+			this.save(tag);
 		}
 	}
 	
@@ -66,6 +61,6 @@ public class TagServiceImpl implements TagService {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
 		TagService service = (TagService) context.getBean("tagService");
 		
-		service.insertBy(1, "Justdoings", "說明會", "活動平台");
+		service.saveBy(1, "Justdoings", "說明會", "活動平台");
 	}
 }

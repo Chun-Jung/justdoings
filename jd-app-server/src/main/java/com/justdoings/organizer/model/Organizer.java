@@ -11,8 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.GeneratorType;
 
 import com.justdoings.member.model.Member;
 import com.justdoings.status.code.model.StatusCode;
@@ -70,7 +75,7 @@ public class Organizer {
 	private List<Member> trackers;
 	
 	/** 建立時間 */
-	@Column(name = "create_dt", insertable = false)
+	@Column(name = "create_dt", insertable = false, updatable = false)
 	private Date createDt;
 	
 	/** 最後更新時間 */

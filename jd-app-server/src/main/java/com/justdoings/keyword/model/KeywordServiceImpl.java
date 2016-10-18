@@ -16,22 +16,31 @@ public class KeywordServiceImpl implements KeywordService {
 
 	@Override
 	@Transactional
-	public void insert(String word) {
+	public void save(String word) {
 		Keyword keyword = new Keyword();
 		keyword.setWord(word);
-		keywordDao.insert(keyword);
+		keywordDao.save(keyword);
 	}
 
 	@Override
 	@Transactional
+	public void delete(KeywordId keywordId) {
+		keywordDao.delete(keywordId);
+	}
+	
+	@Override
+	@Transactional
 	public void delete(Keyword keyword) {
-		keywordDao.delete(keyword);
+		KeywordId keyworId = new KeywordId();
+		keyworId.setQueryTs(keyword.getQueryTs());
+		keyworId.setWord(keyword.getWord());
+		this.delete(keyworId);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Keyword> getAllBy(String word) {
-		return keywordDao.getAllBy(word);
+	public List<Keyword> findAllBy(String word) {
+		return keywordDao.findAllBy(word);
 	}
 
 	public static void main(String[] args) throws InterruptedException {
@@ -39,11 +48,11 @@ public class KeywordServiceImpl implements KeywordService {
 		KeywordService service = (KeywordService) context.getBean("keywordService");
 		
 		for(int i=0; i<3; i++){
-			service.insert("AngularJS 2");
+			service.save("AngularJS 2");
 			Thread.sleep(1);
 		}
 
-		List<Keyword> result = service.getAllBy("AngularJS 2");
+		List<Keyword> result = service.findAllBy("AngularJS 2");
 		for(Keyword keyword : result){
 			System.out.println("word: " + keyword.getWord() + ", ts: " + keyword.getQueryTs());
 			service.delete(keyword);

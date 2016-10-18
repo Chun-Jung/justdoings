@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -65,7 +66,7 @@ public class Member {
 	private Date birthday;
 
 	/** 建立時間 */
-	@Column(name = "create_dt")
+	@Column(name = "create_dt", insertable = false, updatable = false)
 	private Date createDt;
 
 	/** 停權起日 */

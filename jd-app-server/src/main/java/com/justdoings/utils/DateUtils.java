@@ -4,18 +4,40 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
+	/**
+	 * 依輸入參數取得日期
+	 * @param year 年
+	 * @param month 月
+	 * @param day 日
+	 * @return Date
+	 */
 	public static Date getDate(int year, int month, int day){
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month - 1, day);
 		return calendar.getTime();
 	}
 	
+	/**
+	 * 依輸入參數取得日期
+	 * @param year 年
+	 * @param month 月
+	 * @param day 日
+	 * @param hourOfDay 時
+	 * @param minute 分
+	 * @param second 秒
+	 * @return Date
+	 */
 	public static Date getDate(int year, int month, int day, int hourOfDay, int minute, int second){
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month - 1, day, hourOfDay, minute, second);
 		return calendar.getTime();
 	}
 	
+	/**
+	 * 將日期轉換為當日最早時刻
+	 * @param date 日期
+	 * @return Date
+	 */
 	public static Date getMinDate(Date date){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -26,6 +48,11 @@ public class DateUtils {
 		return calendar.getTime();
 	}
 	
+	/**
+	 * 將日期轉換為當日最晚時刻
+	 * @param date 日期
+	 * @return Date
+	 */
 	public static Date getMaxDate(Date date){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
