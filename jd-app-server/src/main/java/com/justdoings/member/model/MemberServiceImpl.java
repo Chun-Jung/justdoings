@@ -29,14 +29,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public void saveOrUpdate(Member member) {
-		memberDao.saveOrUpdate(member);
+		memberDao.save(member);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Member findOneBy(String email) {
-		Member result = memberDao.findOneBy(email);
-		StatusCode memberStatus = statusCodeService.findBy(StatusEnum.Member, result.getStatus());
+	public Member findByEmail(String email) {
+		Member result = memberDao.findByEmail(email);
+		StatusCode memberStatus = statusCodeService.findOne(StatusEnum.Member, result.getStatus());
 		result.setStatusCode(memberStatus);
 		result.getOrganizerTracking().size(); // lazy -> eager
 		return result;
@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(readOnly = true)
 	public Member findOne(Integer memSeq) {
 		Member result = memberDao.findOne(memSeq);
-		StatusCode memberStatus = statusCodeService.findBy(StatusEnum.Member, result.getStatus());
+		StatusCode memberStatus = statusCodeService.findOne(StatusEnum.Member, result.getStatus());
 		result.setStatusCode(memberStatus);
 		result.getOrganizerTracking().size(); // lazy -> eager
 		return result;
@@ -76,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setSex(1);
 		service.saveOrUpdate(member);
 
-		Member member2 = service.findOneBy("test@justdoings.com");
+		Member member2 = service.findByEmail("test@justdoings.com");
 		System.out.println(member2);
 
 		member2.setSex(2);

@@ -12,7 +12,7 @@ public interface MemberService {
 	 * @param email 會員信箱(帳號)
 	 * @return Member
 	 */
-	Member findOneBy(String email);
+	Member findByEmail(String email);
 	
 	/**
 	 * 用會員序號搜尋會員

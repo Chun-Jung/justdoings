@@ -32,5 +32,5 @@ public interface ActService {
 	 * @param shortLink 短連結
 	 * @return int 筆數
 	 */
-	Long countBy(String shortLink);
+	Long countByShortLink(String shortLink);
 }

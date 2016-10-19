@@ -11,11 +11,11 @@ public class StatusCodeServiceImpl implements StatusCodeService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public StatusCode findBy(StatusEnum statusEnum, Integer code) {
+	public StatusCode findOne(StatusEnum statusEnum, Integer code) {
 		StatusCodeId primaryKey = new StatusCodeId();
 		primaryKey.setStatusSeq(statusEnum.ordinal());
 		primaryKey.setCode(code);
-		return statusCodeDao.findBy(primaryKey);
+		return statusCodeDao.findOne(primaryKey);
 	}
 
 }

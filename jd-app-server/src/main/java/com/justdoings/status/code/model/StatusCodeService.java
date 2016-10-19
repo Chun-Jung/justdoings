@@ -7,5 +7,5 @@ public interface StatusCodeService {
 	 * @param code 狀態碼代號
 	 * @return StatusCode
 	 */
-	StatusCode findBy(StatusEnum statusEnum, Integer code);
+	StatusCode findOne(StatusEnum statusEnum, Integer code);
 }

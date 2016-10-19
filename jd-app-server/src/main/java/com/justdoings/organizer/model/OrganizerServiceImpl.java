@@ -26,14 +26,14 @@ public class OrganizerServiceImpl implements OrganizerService {
 	@Override
 	@Transactional
 	public void saveOrUpdate(Organizer org) {
-		organizerDao.saveOrUpdate(org);
+		organizerDao.save(org);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Organizer findOne(Integer orgSeq) {
 		Organizer org = organizerDao.findOne(orgSeq);
-		StatusCode statusCode = statusCodeService.findBy(StatusEnum.Orginizer, org.getStatus());
+		StatusCode statusCode = statusCodeService.findOne(StatusEnum.Orginizer, org.getStatus());
 		org.setStatusCode(statusCode); // not lazy catch
 		return org;
 	}

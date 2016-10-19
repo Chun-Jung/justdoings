@@ -1,10 +1,9 @@
 package com.justdoings.status.code.model;
 
-public interface StatusCodeDao {
-	/**
-	 * 查詢狀態碼
-	 * @param primaryKey 主鍵封裝物件
-	 * @return StatusCode
-	 */
-	StatusCode findBy(StatusCodeId primaryKey);
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional(propagation = Propagation.MANDATORY)
+public interface StatusCodeDao extends CrudRepository<StatusCode, StatusCodeId> {
 }

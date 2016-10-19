@@ -27,5 +27,5 @@ public interface KeywordService {
 	 * @param word 字詞
 	 * @return List<Keyword>
 	 */
-	List<Keyword> findAllBy(String word);
+	List<Keyword> findByWord(String word);
 }

@@ -39,8 +39,8 @@ public class KeywordServiceImpl implements KeywordService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Keyword> findAllBy(String word) {
-		return keywordDao.findAllBy(word);
+	public List<Keyword> findByWord(String word) {
+		return keywordDao.findByWord(word);
 	}
 
 	public static void main(String[] args) throws InterruptedException {
@@ -52,7 +52,7 @@ public class KeywordServiceImpl implements KeywordService {
 			Thread.sleep(1);
 		}
 
-		List<Keyword> result = service.findAllBy("AngularJS 2");
+		List<Keyword> result = service.findByWord("AngularJS 2");
 		for(Keyword keyword : result){
 			System.out.println("word: " + keyword.getWord() + ", ts: " + keyword.getQueryTs());
 			service.delete(keyword);

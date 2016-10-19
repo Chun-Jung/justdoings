@@ -17,7 +17,7 @@ public class AdServiceImpl implements AdService {
 	@Override
 	@Transactional
 	public void saveOrUpdate(Ad ad) {
-		adDao.saveOrUpdate(ad);
+		adDao.save(ad);
 	}
 
 	@Override
