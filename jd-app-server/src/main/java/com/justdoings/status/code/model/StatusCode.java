@@ -24,6 +24,8 @@ public class StatusCode {
 	
 	/** 狀態名稱 */
 	private String value;
+	
+	/** ============== getters and setters ============== */
 
 	public Integer getStatusSeq() {
 		return statusSeq;

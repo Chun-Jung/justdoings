@@ -19,6 +19,8 @@ public class Category {
 	/** 分類名稱 */
 	private String name;
 	
+	/** ============== getters and setters ============== */
+	
 	public Integer getCateSeq() {
 		return cateSeq;
 	}

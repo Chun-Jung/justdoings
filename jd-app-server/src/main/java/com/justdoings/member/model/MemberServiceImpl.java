@@ -30,6 +30,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public void saveOrUpdate(Member member) {
 		memberDao.save(member);
+		//TODO:影像上傳
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public void delete(Member member) {
-		this.delete(member.getMemSeq());
+		delete(member.getMemSeq());
 	}
 
 	@Override

@@ -27,6 +27,7 @@ public class OrganizerServiceImpl implements OrganizerService {
 	@Transactional
 	public void saveOrUpdate(Organizer org) {
 		organizerDao.save(org);
+		//TODO:影像上傳
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class OrganizerServiceImpl implements OrganizerService {
 		System.out.println("status: " + org.getStatus() + "\n");
 		
 		System.out.println("3. delete");
-		orgService.delete(org.getOrgSeq());
+		orgService.delete(org);
 		memService.delete(member);
 		
 		System.out.println("\n\nFinish");

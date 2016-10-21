@@ -18,6 +18,8 @@ public class Location {
 	
 	/** 地區名稱 */
 	private String name;
+	
+	/** ============== getters and setters ============== */
 
 	public Integer getLocSeq() {
 		return locSeq;

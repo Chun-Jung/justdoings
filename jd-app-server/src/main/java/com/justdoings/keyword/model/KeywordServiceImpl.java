@@ -31,10 +31,7 @@ public class KeywordServiceImpl implements KeywordService {
 	@Override
 	@Transactional
 	public void delete(Keyword keyword) {
-		KeywordId keyworId = new KeywordId();
-		keyworId.setQueryTs(keyword.getQueryTs());
-		keyworId.setWord(keyword.getWord());
-		this.delete(keyworId);
+		keywordDao.delete(keyword);
 	}
 
 	@Override

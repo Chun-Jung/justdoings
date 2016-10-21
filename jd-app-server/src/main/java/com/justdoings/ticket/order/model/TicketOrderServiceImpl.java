@@ -1,4 +1,4 @@
-package com.justdoings.act.model;
+package com.justdoings.ticket.order.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,63 +11,55 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.justdoings.act.location.model.Location;
+import com.justdoings.act.model.Act;
+import com.justdoings.act.model.ActService;
 import com.justdoings.member.model.Member;
 import com.justdoings.member.model.MemberService;
 import com.justdoings.organizer.model.Organizer;
 import com.justdoings.organizer.model.OrganizerService;
-import com.justdoings.status.code.model.StatusCode;
-import com.justdoings.status.code.model.StatusCodeService;
-import com.justdoings.status.code.model.StatusEnum;
 import com.justdoings.utils.DateUtils;
 
-@Service("actService")
-public class ActServiceImpl implements ActService {
-	
+@Service("ticketOrderService")
+public class TicketOrderServiceImpl implements TicketOrderService {
 	@Autowired
-	private ActDao actDao;
-	
-	@Autowired
-	private StatusCodeService statusCodeService;
+	private TicketOrderDao ticketOrderDao;
 
 	@Override
 	@Transactional
-	public void saveOrUpdate(Act act) {
-		actDao.save(act);
-		//TODO:影像上傳
+	public void saveOrUpdate(TicketOrder order) {
+		ticketOrderDao.save(order);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
-	public Act findOne(Integer actSeq) {
-		Act act = actDao.findOne(actSeq);
-		StatusCode memberStatus = statusCodeService.findOne(StatusEnum.Act, act.getStatus());
-		act.setStatusCode(memberStatus);
-		return act;
+	public TicketOrder findOne(Integer ordSeq) {
+		return ticketOrderDao.findOne(ordSeq);
 	}
 
 	@Override
 	@Transactional
-	public void delete(Integer actSeq) {
-		actDao.delete(actSeq);
+	public void delete(TicketOrder order) {
+		ticketOrderDao.delete(order);
 	}
 
 	@Override
 	@Transactional
-	public void delete(Act act) {
-		delete(act.getActSeq());
+	public void delete(Integer ordSeq) {
+		ticketOrderDao.delete(ordSeq);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
-	public Long countByShortLink(String shortLink) {
-		return actDao.countByShortLink(shortLink);
+	public List<TicketOrder> findByMemSeq(Integer memSeq) {
+		return ticketOrderDao.findByMemSeq(memSeq);
 	}
-	
+
 	public static void main(String[] args){
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
 		MemberService memService = (MemberService) context.getBean("memberService");
 		OrganizerService orgService = (OrganizerService) context.getBean("organizerService");
 		ActService actService = (ActService) context.getBean("actService");
+		TicketOrderService ticOrdService = (TicketOrderService) context.getBean("ticketOrderService");
 		
 		Member member = new Member();
 		member.setBirthday(new Date());
@@ -109,17 +101,15 @@ public class ActServiceImpl implements ActService {
 		act2.getLocation().setLocSeq(3);
 		actService.saveOrUpdate(act2);
 		
-		member = memService.findOne(member.getMemSeq());
-		List<Act> collecting = new ArrayList<>();
-		collecting.add(act2);
-		member.setCollecting(collecting);
-		memService.saveOrUpdate(member);
-		
-		System.out.println("shortLink count: " + actService.countByShortLink("justdoings-present"));
-		
+		TicketOrder order = new TicketOrder();
+		order.setActSeq(act2.getActSeq());
+		order.setMemSeq(member.getMemSeq());
+		order.setStatus(100);
+		ticOrdService.saveOrUpdate(order);
+
+		ticOrdService.delete(order.getOrdSeq());
 		actService.delete(act2);
 		orgService.delete(org);
 		memService.delete(member);
 	}
-
 }

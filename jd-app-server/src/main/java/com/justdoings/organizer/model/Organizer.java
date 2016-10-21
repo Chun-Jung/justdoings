@@ -11,13 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.GeneratorType;
 
 import com.justdoings.member.model.Member;
 import com.justdoings.status.code.model.StatusCode;
@@ -70,10 +65,6 @@ public class Organizer {
 	/** 狀態碼 */
 	private Integer status;
 	
-	/** 追蹤的使用者 */
-	@ManyToMany(mappedBy="organizerTracking")
-	private List<Member> trackers;
-	
 	/** 建立時間 */
 	@Column(name = "create_dt", insertable = false, updatable = false)
 	private Date createDt;
@@ -82,9 +73,21 @@ public class Organizer {
 	@Column(name = "update_dt")
 	private Date updateDt;
 	
+	/** ============== other domain fields ============== */
+	
 	/** 狀態碼封裝物件 */
 	@Transient
 	private StatusCode statusCode;
+	
+	/** 影像檔案 */
+	@Transient
+	private byte[] imgFile;
+	
+	/** 追蹤的使用者 */
+	@ManyToMany(mappedBy="organizerTracking")
+	private List<Member> trackers;
+	
+	/** ============== getters and setters ============== */
 
 	public Integer getOrgSeq() {
 		return orgSeq;
@@ -212,6 +215,14 @@ public class Organizer {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public byte[] getImgFile() {
+		return imgFile;
+	}
+
+	public void setImgFile(byte[] imgFile) {
+		this.imgFile = imgFile;
 	}
 
 }

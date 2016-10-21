@@ -30,7 +30,6 @@
 	<modules>
 		<module>jd-app-client</module>
 		<module>jd-app-server</module>
-
 	</modules>
 
 	<dependencies>

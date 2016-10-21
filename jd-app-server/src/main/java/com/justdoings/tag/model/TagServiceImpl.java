@@ -42,7 +42,7 @@ public class TagServiceImpl implements TagService {
 
 	@Override
 	@Transactional
-	public int deleteBy(Integer actSeq) {
+	public int deleteByActSeq(Integer actSeq) {
 		return tagDao.deleteByActSeq(actSeq);
 	}
 	

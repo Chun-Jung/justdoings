@@ -29,7 +29,7 @@ public class AdServiceImpl implements AdService {
 	@Override
 	@Transactional
 	public void delete(Ad ad) {
-		adDao.delete(ad.getAdSeq());
+		delete(ad.getAdSeq());
 	}
 
 	@Override
@@ -52,6 +52,6 @@ public class AdServiceImpl implements AdService {
 		ad2.setUrl("https://www.yahoo.com.tw");
 		service.saveOrUpdate(ad2);
 		
-		service.delete(ad2.getAdSeq());
+		service.delete(ad2);
 	}
 }

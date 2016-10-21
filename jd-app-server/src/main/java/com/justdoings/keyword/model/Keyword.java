@@ -28,6 +28,8 @@ public class Keyword {
 	@Column(name = "query_ts")
 	private Timestamp queryTs;
 	
+	/** ============== getters and setters ============== */
+	
 	public String getWord() {
 		return word;
 	}

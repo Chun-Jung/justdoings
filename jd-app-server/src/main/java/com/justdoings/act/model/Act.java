@@ -3,6 +3,7 @@ package com.justdoings.act.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,13 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.justdoings.act.category.model.Category;
 import com.justdoings.act.location.model.Location;
+import com.justdoings.member.model.Member;
 import com.justdoings.organizer.model.Organizer;
 import com.justdoings.status.code.model.StatusCode;
 
@@ -114,14 +114,26 @@ public class Act {
 	/** 活動狀態碼 */
 	private Integer status;
 
+	/** ============== other domain fields ============== */
+	
 	/** 活動狀態封裝物件 */
 	@Transient
 	private StatusCode statusCode;
+	
+	/** 海報檔案 */
+	@Transient
+	private byte[] posterFile;
 
 	/** 活動分類 */
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "act_cate", joinColumns = @JoinColumn(name = "act_seq") , inverseJoinColumns = @JoinColumn(name = "cate_seq") )
 	private List<Category> categories;
+	
+	/** 收藏的使用者 */
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="collecting", cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Member> trackingMember;
+	
+	/** ============== getters and setters ============== */
 
 	public Integer getActSeq() {
 		return actSeq;
@@ -306,6 +318,14 @@ public class Act {
 	public void setStatusCode(StatusCode statusCode) {
 		this.statusCode = statusCode;
 	}
+	
+	public byte[] getPosterFile() {
+		return posterFile;
+	}
+
+	public void setPosterFile(byte[] posterFile) {
+		this.posterFile = posterFile;
+	}
 
 	public List<Category> getCategories() {
 		return categories;
@@ -321,6 +341,14 @@ public class Act {
 
 	public void setClickNo(Integer clickNo) {
 		this.clickNo = clickNo;
+	}
+
+	public List<Member> getTrackingMember() {
+		return trackingMember;
+	}
+
+	public void setTrackingMember(List<Member> trackingMember) {
+		this.trackingMember = trackingMember;
 	}
 
 }

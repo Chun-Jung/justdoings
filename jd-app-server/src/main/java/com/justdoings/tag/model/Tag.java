@@ -19,6 +19,7 @@ public class Tag {
 	@Id
 	private String name;
 
+	/** ============== getters and setters ============== */
 
 	public String getName() {
 		return name;

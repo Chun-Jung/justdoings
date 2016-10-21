@@ -27,6 +27,8 @@ public class Ad {
 
 	/** 活動網址 */
 	private String url;
+	
+	/** ============== getters and setters ============== */
 
 	public Integer getAdSeq() {
 		return adSeq;

@@ -3,6 +3,7 @@ package com.justdoings.member.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,10 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.justdoings.act.model.Act;
 import com.justdoings.organizer.model.Organizer;
 import com.justdoings.status.code.model.StatusCode;
 
@@ -80,15 +81,27 @@ public class Member {
 	/** 停權描述 */
 	@Column(name = "disable_desc")
 	private String disableDesc;
+	
+	/** ============== other domain fields ============== */
 
 	/** 追蹤的主辦單位 */
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "organizer_tracking", joinColumns = @JoinColumn(name = "mem_seq") , inverseJoinColumns = @JoinColumn(name = "org_seq") )
 	private List<Organizer> organizerTracking;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "collecting",joinColumns = @JoinColumn(name = "mem_seq"), inverseJoinColumns = @JoinColumn(name = "act_seq"))
+	private List<Act> collecting;
 	
 	/** 狀態碼封裝物件 */
 	@Transient
 	private StatusCode statusCode;
+	
+	/** 影像檔案 */
+	@Transient
+	private byte[] imgFile;
+	
+	/** ============== getters and setters ============== */
 
 	public Integer getMemSeq() {
 		return memSeq;
@@ -232,6 +245,14 @@ public class Member {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<Act> getCollecting() {
+		return collecting;
+	}
+
+	public void setCollecting(List<Act> collecting) {
+		this.collecting = collecting;
 	}
 
 }
