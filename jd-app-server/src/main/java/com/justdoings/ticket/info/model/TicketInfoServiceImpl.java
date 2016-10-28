@@ -1,4 +1,4 @@
-package com.justdoings.ticket.order.model;
+package com.justdoings.ticket.info.model;
 
 import java.util.Date;
 import java.util.List;
@@ -18,39 +18,39 @@ import com.justdoings.organizer.model.Organizer;
 import com.justdoings.organizer.model.OrganizerService;
 import com.justdoings.utils.DateUtils;
 
-@Service("ticketOrderService")
-public class TicketOrderServiceImpl implements TicketOrderService {
+@Service("ticketInfoService")
+public class TicketInfoServiceImpl implements TicketInfoService {
 	@Autowired
-	private TicketOrderDao ticketOrderDao;
+	private TicketInfoDao ticketInfoDao;
 
 	@Override
 	@Transactional
-	public void saveOrUpdate(TicketOrder order) {
-		ticketOrderDao.save(order);
+	public void saveOrUpdate(TicketInfo ticketInfo) {
+		ticketInfoDao.save(ticketInfo);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public TicketOrder findOne(Integer ordSeq) {
-		return ticketOrderDao.findOne(ordSeq);
+	public TicketInfo findOne(Integer ticInfoSeq) {
+		return ticketInfoDao.findOne(ticInfoSeq);
 	}
 
 	@Override
 	@Transactional
-	public void delete(TicketOrder order) {
-		ticketOrderDao.delete(order);
+	public void delete(TicketInfo ticketInfo) {
+		ticketInfoDao.delete(ticketInfo);
 	}
 
 	@Override
 	@Transactional
-	public void delete(Integer ordSeq) {
-		ticketOrderDao.delete(ordSeq);
+	public void delete(Integer ticInfoSeq) {
+		ticketInfoDao.delete(ticInfoSeq);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<TicketOrder> findByMemSeq(Integer memSeq) {
-		return ticketOrderDao.findByMemSeq(memSeq);
+	public List<TicketInfo> findByActActSeq(Integer actSeq) {
+		return ticketInfoDao.findByActActSeq(actSeq);
 	}
 
 	public static void main(String[] args){
@@ -58,7 +58,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 		MemberService memService = (MemberService) context.getBean("memberService");
 		OrganizerService orgService = (OrganizerService) context.getBean("organizerService");
 		ActService actService = (ActService) context.getBean("actService");
-		TicketOrderService ticOrdService = (TicketOrderService) context.getBean("ticketOrderService");
+		TicketInfoService ticInfoService = (TicketInfoService) context.getBean("ticketInfoService");
 		
 		Member member = new Member();
 		member.setBirthday(new Date());
@@ -100,21 +100,30 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 		act2.getLocation().setLocSeq(3);
 		actService.saveOrUpdate(act2);
 		
-		TicketOrder order = new TicketOrder();
-		Act orderAct = new Act();
-		orderAct.setActSeq(act2.getActSeq());
-		order.setAct(orderAct);
-		order.setMemSeq(member.getMemSeq());
-		order.setStatus(100);
-		ticOrdService.saveOrUpdate(order);
-
-		List<TicketOrder> ticketOrders = ticOrdService.findByMemSeq(member.getMemSeq());
-		for(TicketOrder ticketOrder : ticketOrders){
-			ticOrdService.delete(ticketOrder);
+		TicketInfo ticInfo = new TicketInfo();
+		ticInfo.setAct(act2);
+		ticInfo.setTicName("票卷一號");
+		ticInfo.setPrice(200);
+		ticInfo.setTicTotalNo(200);
+		ticInfo.setTicPaidNo(0);
+		ticInfo.setTicUnpaidNo(0);
+		ticInfo.setBuyMinNo(1);
+		ticInfo.setBuyMaxNo(1);
+		ticInfo.setStatus(0);
+		ticInfo.setTicSellBeginDt(DateUtils.getDate(2016, 10, 26, 8, 0, 0));
+		ticInfo.setTicSellEndDt(DateUtils.getDate(2017, 12, 31, 23, 59, 59));
+		ticInfo.setTicValBeginDt(DateUtils.getDate(2016, 10, 26, 8, 0, 0));
+		ticInfo.setTicValEndDt(DateUtils.getDate(2017, 12, 31, 23, 59, 59));
+		ticInfoService.saveOrUpdate(ticInfo);
+		
+		List<TicketInfo> ticInfoList = ticInfoService.findByActActSeq(act2.getActSeq());
+		for(TicketInfo item : ticInfoList){
+			ticInfoService.delete(item);
 		}
 		
 		actService.delete(act2);
 		orgService.delete(org);
 		memService.delete(member);
 	}
+	
 }
