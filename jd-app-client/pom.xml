@@ -72,6 +72,12 @@
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>jd</groupId>
+			<artifactId>jd-app-server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

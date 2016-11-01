@@ -2,12 +2,14 @@ package com.justdoings.ticket.order.model;
 
 import java.util.List;
 
+import com.justdoings.ticket.info.model.TicketInfo;
+
 public interface TicketOrderService {
 	/**
-	 * 新增或儲存票卷訂單
+	 * 新增票卷訂單
 	 * @param order 票卷訂單
 	 */
-	void saveOrUpdate(TicketOrder order);
+	void save(TicketOrder order, List<TicketInfo> ticketInfos);
 	
 	/**
 	 * 搜尋票卷訂單
