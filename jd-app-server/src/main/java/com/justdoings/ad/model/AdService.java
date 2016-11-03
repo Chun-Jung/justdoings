@@ -1,5 +1,7 @@
 package com.justdoings.ad.model;
 
+import java.util.List;
+
 public interface AdService {
 	/**
 	 * 新增輪播活動
@@ -25,4 +27,10 @@ public interface AdService {
 	 * @param adSeq 輪播活動編號
 	 */
 	void delete(Integer adSeq);
+	
+	/**
+	 * 找出所有有效的輪播活動(effect_end_dt > now)
+	 * @return
+	 */
+	List<Ad> findEffectAd();
 }

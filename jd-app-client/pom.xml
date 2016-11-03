@@ -15,10 +15,11 @@
 
 	<name>jd-app-client Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
 		<servlet.version>3.1.0</servlet.version>
 		<org.springframework-security.version>4.0.4.RELEASE</org.springframework-security.version>
+		<jstl.version>1.2</jstl.version>
 	</properties>
 
 	<dependencies>
@@ -72,7 +73,12 @@
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>jd</groupId>
 			<artifactId>jd-app-server</artifactId>
@@ -83,5 +89,4 @@
 	<build>
 		<finalName>jd-app-client</finalName>
 	</build>
-
 </project>

@@ -1,5 +1,7 @@
 package com.justdoings.ad.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.justdoings.act.model.Act;
 
 @Entity
+@NamedQueries(value = {@NamedQuery(name = "findEffectAd", query = "SELECT A FROM Ad A WHERE A.effectBeginDt >= ?1 AND A.effectEndDt <= ?2")})
 @Table
 public class Ad {
 	/** 輪播編號 */
@@ -24,9 +29,14 @@ public class Ad {
 	@ManyToOne
 	@JoinColumn(name="act_Seq")
 	private Act act;
-
-	/** 活動網址 */
-	private String url;
+	
+	/** 有效起日 */
+	@Column(name = "effect_begin_dt")
+	private Date effectBeginDt;
+	
+	/** 有效迄日 */
+	@Column(name = "effect_end_dt")
+	private Date effectEndDt;
 	
 	/** ============== getters and setters ============== */
 
@@ -46,12 +56,20 @@ public class Ad {
 		this.act = act;
 	}
 
-	public String getUrl() {
-		return url;
+	public Date getEffectBeginDt() {
+		return effectBeginDt;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setEffectBeginDt(Date effectBeginDt) {
+		this.effectBeginDt = effectBeginDt;
+	}
+
+	public Date getEffectEndDt() {
+		return effectEndDt;
+	}
+
+	public void setEffectEndDt(Date effectEndDt) {
+		this.effectEndDt = effectEndDt;
 	}
 	
 }

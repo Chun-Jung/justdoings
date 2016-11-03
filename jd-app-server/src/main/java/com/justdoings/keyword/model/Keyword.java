@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Keyword.findByTsRange", query = "SELECT K from Keyword K WHERE K.queryTs >= ?1 AND K.queryTs <= ?2 ")
+		@NamedQuery(name = "Keyword.findByTsRange", query = "SELECT K FROM Keyword K WHERE K.queryTs >= ?1 AND K.queryTs <= ?2 ")
 		})
 @Table
 @IdClass(KeywordId.class)

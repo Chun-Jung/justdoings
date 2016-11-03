@@ -1,5 +1,9 @@
 package com.justdoings.ad.model;
 
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -7,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.justdoings.act.model.Act;
+import com.justdoings.utils.DateUtils;
 
 @Service("adService")
 public class AdServiceImpl implements AdService {
@@ -38,6 +43,19 @@ public class AdServiceImpl implements AdService {
 		adDao.delete(adSeq);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Ad> findEffectAd() {
+		List<Ad> ads = adDao.findEffectAd(new Date());
+		for(Ad ad : ads){
+			Act act = ad.getAct();
+			if(StringUtils.isNotBlank(act.getPosterFileName())){
+				
+			}
+		}
+		return ads;
+	}
+	
 	public static void main(String[] args){
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
 		AdService service = (AdService) context.getBean("adService");
@@ -46,10 +64,12 @@ public class AdServiceImpl implements AdService {
 		Act act = new Act();
 		act.setActSeq(1);
 		ad.setAct(act);
+		ad.setEffectBeginDt(DateUtils.getDate(2016, 11, 2, 0, 0, 0));
+		ad.setEffectEndDt(DateUtils.getDate(2017, 12, 31, 23, 59, 59));
 		service.saveOrUpdate(ad);
 		
 		Ad ad2 = service.findOne(ad.getAdSeq());
-		ad2.setUrl("https://www.yahoo.com.tw");
+		ad2.setEffectEndDt(DateUtils.getDate(2099, 12, 31, 23, 59, 59));
 		service.saveOrUpdate(ad2);
 		
 		service.delete(ad2);
