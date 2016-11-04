@@ -1,9 +1,14 @@
 package com.justdoings.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class DateUtils {
+	private static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
+	
 	/**
 	 * 依輸入參數取得日期
 	 * @param year 年
@@ -61,5 +66,17 @@ public class DateUtils {
 		calendar.set(Calendar.SECOND, 59);
 		calendar.set(Calendar.MILLISECOND, 999);
 		return calendar.getTime();
+	}
+	
+	/**
+	 * 取得格式化的日期
+	 * @param date 日期
+	 * @param format 格式
+	 * @return String
+	 */
+	public static String getFormatDate(Date date, String format){
+		format = StringUtils.isBlank(format) ? DEFAULT_DATE_FORMAT: format;
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(date);
 	}
 }

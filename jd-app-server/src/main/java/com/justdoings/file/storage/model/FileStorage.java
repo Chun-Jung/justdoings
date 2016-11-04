@@ -21,7 +21,7 @@ public class FileStorage {
 	
 	private String name;
 	
-	@Column(name = "create_dt")
+	@Column(name = "create_dt", insertable = false)
 	private Date createDt;
 	
 	/** ============== getters and setters ============== */

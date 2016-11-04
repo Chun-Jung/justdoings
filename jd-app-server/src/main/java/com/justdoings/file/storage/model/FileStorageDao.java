@@ -6,5 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(propagation = Propagation.MANDATORY)
 public interface FileStorageDao extends CrudRepository<FileStorage, Integer> {
-	
+	FileStorage findByName(String name);
 }
