@@ -16,15 +16,16 @@ public class WelcomeController {
 	@Autowired
 	private ActService actService;
 	
-	@RequestMapping("/*")
+	@RequestMapping("*")
 	public ModelAndView defalutPage(){
 		return welcomePage();
 	}
 	
-	@RequestMapping("/welcome")
+	@RequestMapping("welcome")
 	public ModelAndView welcomePage(){
 		ModelAndView model = new ModelAndView("front/welcome");
 		model.addObject("adList", adService.findEffectAd());
+		model.addObject("recommendActList", actService.findByisRecomm());
 		return model;
 	}
 }

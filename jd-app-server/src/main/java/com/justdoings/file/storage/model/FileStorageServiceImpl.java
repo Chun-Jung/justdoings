@@ -7,13 +7,17 @@ import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.justdoings.status.code.model.StatusEnum;
 import com.justdoings.utils.DateUtils;
 
+@Service("fileStorageService")
 public class FileStorageServiceImpl implements FileStorageService {
-	private static final String FILE_STORAGE_DIR_ROOT = "D:/";
+	private static final String FILE_STORAGE_ROOT = "D:/justdoings";
+	
+	private static final String DEFAULT_IMG_FILE_FORMAT = "/defaultImg/default%s.jpg";
 	
 	@Autowired
 	private FileStorageDao fileStorageDao;
@@ -22,8 +26,8 @@ public class FileStorageServiceImpl implements FileStorageService {
 	@Transactional
 	public String save(StatusEnum statusEnum, String name, byte[] data) throws IOException {
 		Date now = new Date();
-		// 資料夾路徑為 root/status/yyyy/MM/dd
-		String folderPath = FILE_STORAGE_DIR_ROOT + statusEnum.name() + "/" + DateUtils.getFormatDate(now, "yyyy/MM/dd");
+		// 資料夾路徑為 root/userupload/yyyy/MM/dd
+		String folderPath = FILE_STORAGE_ROOT + "/userupload/" + DateUtils.getFormatDate(now, "yyyy/MM/dd");
 		File folder = new File(folderPath);
 		if(!folder.exists()){
 			folder.mkdirs();
@@ -53,8 +57,26 @@ public class FileStorageServiceImpl implements FileStorageService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public FileStorage findByFileName(StatusEnum statusEnum, String name) {
+	public byte[] findByFileName(String name) {
 		FileStorage fileStorage = fileStorageDao.findByName(name);
-		return null;
+		File folder = new File(FILE_STORAGE_ROOT + fileStorage.getPath());
+		File file = new File(folder, name);
+		byte[] data = null;
+		try {
+			data = FileUtils.readFileToByteArray(file);
+		} catch (IOException igonre) {
+		}
+		return data;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public byte[] getDefaultImg(String imgNo) {
+		byte[] data = null;
+		try{
+			data = FileUtils.readFileToByteArray(new File(FILE_STORAGE_ROOT, String.format(DEFAULT_IMG_FILE_FORMAT, imgNo)));
+		}catch(IOException igonre){
+		}
+		return data;
 	}
 }

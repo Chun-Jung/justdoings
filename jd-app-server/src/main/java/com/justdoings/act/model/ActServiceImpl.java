@@ -1,5 +1,6 @@
 package com.justdoings.act.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,10 +8,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.justdoings.act.location.model.Location;
+import com.justdoings.constant.model.PageableConstant;
+import com.justdoings.file.storage.model.FileStorageService;
 import com.justdoings.member.model.Member;
 import com.justdoings.member.model.MemberService;
 import com.justdoings.organizer.model.Organizer;
@@ -28,12 +33,32 @@ public class ActServiceImpl implements ActService {
 	
 	@Autowired
 	private StatusCodeService statusCodeService;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
 
 	@Override
 	@Transactional
 	public void saveOrUpdate(Act act) {
-		actDao.save(act);
-		//TODO:影像上傳
+		if(act.getActSeq()!= null && actDao.exists(act.getActSeq())){
+			// 新增
+			saveNewAct(act);
+		}else{
+			// 修改
+			updateAct(act);
+		}
+	}
+	
+	private void saveNewAct(Act act){
+		
+	}
+	
+	private void updateAct(Act act){
+		
+	}
+	
+	private String saveFile(String posterName){
+		return null;
 	}
 	
 	@Override
@@ -62,6 +87,19 @@ public class ActServiceImpl implements ActService {
 	public Long countByShortLink(String shortLink) {
 		return actDao.countByShortLink(shortLink);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Act> findByisRecomm() {
+		Pageable instructions = new PageRequest(PageableConstant.INIT_PAGE_SIZE, PageableConstant.RECOMMEND_ACT_PAGE_SIZE);
+		return actDao.findByisRecomm(1, instructions).getContent();
+	}
+	
+//	@Override
+//	@Transactional(readOnly = true)
+//	public Integer countTrackingNumber(Integer actSeq) {
+//		return actDao.countTrackingNumber(actSeq);
+//	}
 	
 	public static void main(String[] args){
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
@@ -121,5 +159,4 @@ public class ActServiceImpl implements ActService {
 		orgService.delete(org);
 		memService.delete(member);
 	}
-
 }

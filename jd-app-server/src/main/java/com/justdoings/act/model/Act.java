@@ -124,6 +124,10 @@ public class Act {
 	@Transient
 	private byte[] posterFile;
 
+	/** 追蹤人數，避免使用trackingMember，減少記憶體配置 */
+	@Transient
+	private Integer trackingNumber; 
+	
 	/** 活動分類 */
 	@ManyToMany
 	@JoinTable(name = "act_cate", joinColumns = @JoinColumn(name = "act_seq") , inverseJoinColumns = @JoinColumn(name = "cate_seq") )
@@ -349,6 +353,14 @@ public class Act {
 
 	public void setTrackingMember(List<Member> trackingMember) {
 		this.trackingMember = trackingMember;
+	}
+
+	public Integer getTrackingNumber() {
+		return trackingNumber;
+	}
+
+	public void setTrackingNumber(Integer trackingNumber) {
+		this.trackingNumber = trackingNumber;
 	}
 
 }

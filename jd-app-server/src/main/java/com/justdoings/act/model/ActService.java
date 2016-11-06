@@ -1,5 +1,7 @@
 package com.justdoings.act.model;
 
+import org.springframework.data.jpa.repository.Query;
+
 public interface ActService {
 	/**
 	 * 新增活動
@@ -26,11 +28,23 @@ public interface ActService {
 	 */
 	void delete(Act act);
 	
-	
 	/**
 	 * 查詢是否有重複的短連結
 	 * @param shortLink 短連結
 	 * @return int 筆數
 	 */
 	Long countByShortLink(String shortLink);
+	
+	/**
+	 * 找出推薦的活動
+	 * @return Iterable<Act>
+	 */
+	Iterable<Act> findByisRecomm();
+	
+	/**
+	 * 計算收藏名單數
+	 * @param actSeq 活動編號
+	 * @return Integer
+	 */
+//	Integer countTrackingNumber(Integer actSeq);
 }

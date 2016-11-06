@@ -37,6 +37,9 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(readOnly = true)
 	public Member findByEmail(String email) {
 		Member result = memberDao.findByEmail(email);
+		if(result == null){
+			return result;
+		}
 		StatusCode memberStatus = statusCodeService.findOne(StatusEnum.Member, result.getStatus());
 		result.setStatusCode(memberStatus);
 		result.getOrganizerTracking().size(); // lazy -> eager
