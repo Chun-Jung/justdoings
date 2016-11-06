@@ -2,6 +2,8 @@ package com.justdoings.ad.model;
 
 import java.util.List;
 
+import com.justdoings.act.model.Act;
+
 public interface AdService {
 	/**
 	 * 新增輪播活動
@@ -30,7 +32,13 @@ public interface AdService {
 	
 	/**
 	 * 找出所有有效的輪播活動(effect_end_dt > now)
-	 * @return
+	 * @return List<Ad>
 	 */
 	List<Ad> findEffectAd();
+	
+	/**
+	 * 找出所有有效的輪播活動(effect_end_dt > now)
+	 * @return List<Act>
+	 */
+	List<Act> findEffectAct();
 }

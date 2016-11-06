@@ -3,6 +3,7 @@ package com.justdoings.act.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.justdoings.act.model.ActService;
 import com.justdoings.ad.model.AdService;
@@ -17,9 +18,11 @@ public class ActController {
 	private AdService adService;
 	
 	@RequestMapping("/findPage")
-	public String findActPage(){
+	public ModelAndView findActPage(){
 		//TODO:導回找活動頁面
-		return "";
+		ModelAndView model = new ModelAndView("/front/welcome");
+		model.addObject("adList", adService.findEffectAct());
+		return model;
 	}
 	
 	@RequestMapping("/create")

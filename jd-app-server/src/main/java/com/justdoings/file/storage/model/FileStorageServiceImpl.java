@@ -13,7 +13,7 @@ import com.justdoings.status.code.model.StatusEnum;
 import com.justdoings.utils.DateUtils;
 
 public class FileStorageServiceImpl implements FileStorageService {
-	private static final String FILE_STORAGE_DIR_ROOT = "D:/";
+	private static final String FILE_STORAGE_DIR_ROOT = "D:/justdoings/";
 	
 	@Autowired
 	private FileStorageDao fileStorageDao;
@@ -53,8 +53,27 @@ public class FileStorageServiceImpl implements FileStorageService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public FileStorage findByFileName(StatusEnum statusEnum, String name) {
+	public byte[] findByFileName(String name) {
 		FileStorage fileStorage = fileStorageDao.findByName(name);
-		return null;
+		File folder = new File(fileStorage.getPath());
+		File file = new File(folder, name);
+		byte[] data = null;
+		try {
+			data = FileUtils.readFileToByteArray(file);
+		} catch (IOException igonre) {
+			data = getDefaultActPosterFile();
+		}
+		return data;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public byte[] getDefaultActPosterFile() {
+		byte[] data = null;
+		try{
+			data = FileUtils.readFileToByteArray(new File(""));
+		}catch(IOException igonre){
+		}
+		return data;
 	}
 }
