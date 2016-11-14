@@ -1,0 +1,18 @@
+/* nav */
+nav[role="navigation"]{
+	
+}
+
+.icon30{
+	width: 30px;
+	height: 30px;
+}
+body{
+	padding-top: 50px; /* 避免.navbar-fixed-top佔據上面的高度內容 */
+}
+.witdh100{
+	width: 100%;
+}
+.padding-form{
+	margin-bottom: 10px;
+}
